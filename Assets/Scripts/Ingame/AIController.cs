@@ -1,27 +1,60 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-[RequireComponent( typeof( BoatMovement ) )]
+[RequireComponent( typeof( Boat ) )]
 public class AIController : MonoBehaviour
 {
-	public Vector2 RowLeftMinMaxTime;
-	public Vector2 RowRightMinMaxTime;
+	public Vector2 RowMinMaxTime;
 
-	float TimeUntilNextLeftRow;
-	float TimeUntilNextRightRow;
+	public int minPlayer = 1;
+	public int maxPlayer = 4;
 
-	void FixedUpdate () {
+	class RowTiming
+	{
+		public Player Player;
+		public float TimeUmtilNextRowing;
+	}
 
-		TimeUntilNextLeftRow -= Time.fixedDeltaTime;
-		TimeUntilNextRightRow -= Time.fixedDeltaTime;
+	List<RowTiming> rowTimings = new List<RowTiming>();
+	
+	void Start () {
+		Random.InitState( System.DateTime.UtcNow.Millisecond );
+		Boat boat = GetComponent<Boat>();
 
-		if(TimeUntilNextLeftRow < Mathf.Epsilon) {
-			throw new System.NotImplementedException();
-			TimeUntilNextLeftRow += Random.Range( RowLeftMinMaxTime.x, RowLeftMinMaxTime.y );
+		int leftPlayerCount = Random.Range( minPlayer, maxPlayer );
+		int rightPlayerCount = Random.Range( minPlayer, maxPlayer );
+		for (int i = 0; i < leftPlayerCount; i++) {
+			var player = new Player {
+				Id = i,
+				Group = 0,
+				Side = 0
+			};
+			boat.LeftSide.Players.Add( player );
+			this.rowTimings.Add( new RowTiming {
+				Player = player
+			} );
 		}
 
-		if (TimeUntilNextRightRow < Mathf.Epsilon) {
-			throw new System.NotImplementedException();
-			TimeUntilNextRightRow += Random.Range( RowRightMinMaxTime.x, RowRightMinMaxTime.y );
+		for (int i = 0; i < rightPlayerCount; i++) {
+			var player = new Player {
+				Id = i + leftPlayerCount,
+				Group = 0,
+				Side = 1
+			};
+			boat.RightSide.Players.Add( player );
+			this.rowTimings.Add( new RowTiming {
+				Player = player
+			} );
+		}
+	}
+
+	void FixedUpdate () {
+		foreach(var rowTiming in this.rowTimings) {
+			rowTiming.TimeUmtilNextRowing -= Time.fixedDeltaTime;
+			if(rowTiming.TimeUmtilNextRowing < Mathf.Epsilon) {
+				GetComponent<Boat>().Row( rowTiming.Player );
+				rowTiming.TimeUmtilNextRowing += Random.Range( RowMinMaxTime.x, RowMinMaxTime.y );
+			}
 		}
 	}
 }
