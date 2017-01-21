@@ -10,6 +10,8 @@ enum CustomMsgType
     JoinSide,
     LeaveSide,
     PlayerStatus,
+    StartRowing,
+    StopRowing,
 
     Test = 99,
     RegisterView = 100
