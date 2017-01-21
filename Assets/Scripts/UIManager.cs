@@ -22,18 +22,35 @@ public class UIManager : MonoBehaviour
 	public Text GroupBLeft;
 	public Text GroupBRight;
 
-	private Manager netManager;
+	public TestView WorldView;
+	public TestClient ClientView;
+
+	public bool IsPresenter;
+	public bool IsClient;
+
+
 	private GameState gameState;
 
 	private void OnEnable ()
 	{
-		ShowConnect ();
-		var gameManager = GameObject.FindGameObjectWithTag ("GameManager");
-		netManager = gameManager.GetComponent<Manager> ();
+		if (IsPresenter)
+		{
+			WorldView.StartWorldView ();
+			ShowWaiting (false);
+		}
+		else
+		{
+			ShowConnect ();
+		}
 
-		gameState = gameManager.GetComponent<GameState> ();
-		gameState.OnGameStateChanged -= UpdateText;
-		gameState.OnGameStateChanged += UpdateText;
+		if (IsPresenter)
+		{
+			gameState = WorldView.GameState;
+			gameState.OnGameStateChanged -= UpdateText;
+			gameState.OnGameStateChanged += UpdateText;
+		}
+
+
 	}
 
 	public void ShowConnect ()
@@ -73,41 +90,35 @@ public class UIManager : MonoBehaviour
 
 	public void OnHostButton ()
 	{
-		netManager.StartGameServer ();
+		//netManager.StartGameServer ();
 		ShowWaiting (false);
 	}
 
 	public void OnConnectButton ()
 	{
 		string ip = string.IsNullOrEmpty (IpInput.text) ? (IpInput.placeholder as Text).text : IpInput.text;
-		netManager.StartClient (ip);
+		ClientView.StartClient (ip);
 		ShowGroupSelection ();
 	}
 
-	public void OnConnectAsGameViewClient ()
-	{
-		string ip = string.IsNullOrEmpty (IpInput.text) ? (IpInput.placeholder as Text).text : IpInput.text;
-		netManager.StartGameViewClient (ip);
-		ShowGroupSelection ();
-	}
 
 	public void OnBackButton ()
 	{
-		netManager.LeaveSide ();
-		netManager.LeaveGroup ();
+		ClientView.LeaveSide ();
+		ClientView.LeaveGroup ();
 		ShowGroupSelection ();
 	}
 
 	public void OnGroupSelect (int team)
 	{
 		ShowSideSelection ();
-		netManager.JoinGroup (team);
+		ClientView.JoinGroup (team);
 	}
 
 	public void OnSideSelect (int side)
 	{
 		ShowWaiting (true);
-		netManager.JoinSide (side);
+		ClientView.JoinSide (side);
 	}
 
 	private void UpdateText ()

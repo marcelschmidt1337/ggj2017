@@ -3,11 +3,22 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class GameState : MonoBehaviour
+public class GameState
 {
 	public event Action OnGameStateChanged = delegate { };
 
 	List<Player> connectedPlayers = new List<Player> ();
+
+	public void SetPlayerState (List<Player> playerState)
+	{
+		connectedPlayers = playerState;
+		OnGameStateChanged ();
+	}
+
+	public List<Player> GetPlayerState ()
+	{
+		return new List<Player> (connectedPlayers);
+	}
 
 	public bool HasPlayer (int id)
 	{
