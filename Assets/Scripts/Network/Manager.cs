@@ -3,9 +3,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 
-public class Manager : NetworkManager
-{
-  enum CustomMsgType
+  public  enum CustomMsgType
   {
 	JoinGroup = MsgType.Highest + 1,
 	LeaveGroup,
@@ -16,6 +14,8 @@ public class Manager : NetworkManager
   Test = 99,
   RegisterView = 100
   }
+public class Manager : NetworkManager
+{
 
   private bool serverStarted = false;
   private int worldClientId;
