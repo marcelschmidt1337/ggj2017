@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public class GameState : MonoBehaviour
 {
@@ -72,6 +73,16 @@ public class GameState : MonoBehaviour
 		{
 			return -1;
 		}
+	}
+
+	public int GetPlayerInGroup (int groupId)
+	{
+		return connectedPlayers.Where (p => p.Group == groupId).Count ();
+	}
+
+	public int GetPlayerOnSide (int groupId, int sideId)
+	{
+		return connectedPlayers.Where (p => p.Group == groupId && p.Side == sideId).Count ();
 	}
 
 	private Player FindPlayer (int id)

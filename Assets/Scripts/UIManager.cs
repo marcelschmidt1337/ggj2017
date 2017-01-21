@@ -14,14 +14,26 @@ public class UIManager : MonoBehaviour
 
 	[Header ("Waiting For Start")]
 	public Button BackButton;
+	public GameObject PlayerStatus;
+	public Text GroupAText;
+	public Text GroupALeft;
+	public Text GroupARight;
+	public Text GroupBText;
+	public Text GroupBLeft;
+	public Text GroupBRight;
 
 	private Manager netManager;
+	private GameState gameState;
 
 	private void OnEnable ()
 	{
 		ShowConnect ();
 		var gameManager = GameObject.FindGameObjectWithTag ("GameManager");
 		netManager = gameManager.GetComponent<Manager> ();
+
+		gameState = gameManager.GetComponent<GameState> ();
+		gameState.OnGameStateChanged -= UpdateText;
+		gameState.OnGameStateChanged += UpdateText;
 	}
 
 	public void ShowConnect ()
@@ -51,6 +63,7 @@ public class UIManager : MonoBehaviour
 	public void ShowWaiting (bool showBackButton)
 	{
 		BackButton.gameObject.SetActive (showBackButton);
+		PlayerStatus.gameObject.SetActive (!showBackButton);
 
 		Connect.gameObject.SetActive (false);
 		GroupSelect.gameObject.SetActive (false);
@@ -95,5 +108,25 @@ public class UIManager : MonoBehaviour
 	{
 		ShowWaiting (true);
 		netManager.JoinSide (side);
+	}
+
+	private void UpdateText ()
+	{
+		int a = gameState.GetPlayerInGroup (Player.GROUP_A);
+		int b = gameState.GetPlayerInGroup (Player.GROUP_B);
+
+		int aLeft = gameState.GetPlayerOnSide (Player.GROUP_A, Player.SIDE_LEFT);
+		int aRight = gameState.GetPlayerOnSide (Player.GROUP_A, Player.SIDE_RIGHT);
+
+		int bLeft = gameState.GetPlayerOnSide (Player.GROUP_B, Player.SIDE_LEFT);
+		int bRight = gameState.GetPlayerOnSide (Player.GROUP_B, Player.SIDE_RIGHT);
+
+		GroupAText.text = string.Format ("Group A: {0}", a);
+		GroupALeft.text = string.Format ("Left: {0}", aLeft);
+		GroupARight.text = string.Format ("Right: {0}", aRight);
+
+		GroupBText.text = string.Format ("Group B: {0}", b);
+		GroupBLeft.text = string.Format ("Left: {0}", bLeft);
+		GroupBRight.text = string.Format ("Right: {0}", bRight);
 	}
 }
