@@ -54,7 +54,7 @@ public class Manager : NetworkManager
 
   private void OnGUI ()
   {
-    if (serverStarted || client != null)
+    if (serverStarted == false || client != null)
     {
       if (GUILayout.Button ("Server"))
       {
