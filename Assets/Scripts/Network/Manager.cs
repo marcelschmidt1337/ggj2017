@@ -11,7 +11,10 @@ public class Manager : NetworkManager
 	LeaveGroup,
 	JoinSide,
 	LeaveSide,
-	PlayerStatus
+	PlayerStatus,
+
+  Test = 99,
+  RegisterView = 100
   }
 
   private bool serverStarted = false;
@@ -78,12 +81,12 @@ public class Manager : NetworkManager
 
 	if (GUILayout.Button ("TEST Ruderern"))
 	{
-	  client.Send (99, new IntegerMessage (1337));
+	  client.Send ((short)CustomMsgType.Test, new IntegerMessage (1337));
 	}
 
 	if (GUILayout.Button ("TEST WorldView"))
 	{
-	  client.Send (100, new IntegerMessage (0));
+	  client.Send ((short)CustomMsgType.RegisterView, new IntegerMessage (0));
 	}
 
 	GUILayout.Label (lastPullTime);
@@ -99,16 +102,16 @@ public class Manager : NetworkManager
 	NetworkServer.RegisterHandler ((short)CustomMsgType.JoinSide, OnJoinSide);
 	NetworkServer.RegisterHandler ((short)CustomMsgType.LeaveSide, OnLeaveSide);
 
-	NetworkServer.RegisterHandler (99, (netMsg) =>
+	NetworkServer.RegisterHandler ((short)CustomMsgType.Test, (netMsg) =>
 	{
 	  var msg = netMsg.ReadMessage<IntegerMessage> ();
 		this.PullTimeText.text = lastPullTime; 
 		lastPullTime = "SEND START: " + msg.value.ToString() + System.DateTime.Now.Millisecond.ToString();
-		NetworkServer.SendToClient (worldClientId, 99, msg);
+		NetworkServer.SendToClient(worldClientId, (short)CustomMsgType.Test, msg);
 		lastPullTime = "SEND DONE: " + msg.value.ToString() + System.DateTime.Now.Millisecond.ToString();
 
 	});
-	NetworkServer.RegisterHandler (100, (netMsg) =>
+	NetworkServer.RegisterHandler ((short)CustomMsgType.RegisterView, (netMsg) =>
 	{
 		worldClientId = netMsg.conn.connectionId; 
 	});
