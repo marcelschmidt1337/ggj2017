@@ -3,68 +3,130 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-  [Header ("UI Panels")]
-  public GameObject GroupSelect;
-  public GameObject SideSelect;
-  public GameObject Waiting;
+	[Header ("UI Panels")]
+	public GameObject Connect;
+	public GameObject GroupSelect;
+	public GameObject SideSelect;
+	public GameObject Waiting;
 
-  [Header ("Group Selection")]
-  public Text TeamAText;
-  public Button TeamAButton;
-  public Text TeamBText;
-  public Button TeamBButton;
+	[Header ("Connect")]
+	public InputField IpInput;
 
-  [Header ("Side Selection")]
-  public Text LeftText;
-  public Button LeftButton;
-  public Text RightText;
-  public Button RightButton;
+	[Header ("Waiting For Start")]
+	public Button BackButton;
+	public GameObject PlayerStatus;
+	public Text GroupAText;
+	public Text GroupALeft;
+	public Text GroupARight;
+	public Text GroupBText;
+	public Text GroupBLeft;
+	public Text GroupBRight;
 
-  private int selectedGroup = -1;
-  private int selectedSide = -1;
+	private Manager netManager;
+	private GameState gameState;
 
-  private void OnEnable ()
-  {
-    ShowGroupSelection ();
-  }
+	private void OnEnable ()
+	{
+		ShowConnect ();
+		var gameManager = GameObject.FindGameObjectWithTag ("GameManager");
+		netManager = gameManager.GetComponent<Manager> ();
 
-  public void ShowGroupSelection ()
-  {
-    GroupSelect.gameObject.SetActive (true);
-    SideSelect.gameObject.SetActive (false);
-    Waiting.gameObject.SetActive (false);
-  }
+		gameState = gameManager.GetComponent<GameState> ();
+		gameState.OnGameStateChanged -= UpdateText;
+		gameState.OnGameStateChanged += UpdateText;
+	}
 
-  public void ShowSideSelection ()
-  {
-    GroupSelect.gameObject.SetActive (false);
-    SideSelect.gameObject.SetActive (true);
-    Waiting.gameObject.SetActive (false);
-  }
+	public void ShowConnect ()
+	{
+		Connect.gameObject.SetActive (true);
+		GroupSelect.gameObject.SetActive (false);
+		SideSelect.gameObject.SetActive (false);
+		Waiting.gameObject.SetActive (false);
+	}
 
-  public void ShowWaiting ()
-  {
-    GroupSelect.gameObject.SetActive (false);
-    SideSelect.gameObject.SetActive (false);
-    Waiting.gameObject.SetActive (true);
-  }
+	public void ShowGroupSelection ()
+	{
+		Connect.gameObject.SetActive (false);
+		GroupSelect.gameObject.SetActive (true);
+		SideSelect.gameObject.SetActive (false);
+		Waiting.gameObject.SetActive (false);
+	}
 
-  public void OnBackButton ()
-  {
-    selectedGroup = -1;
-    selectedSide = -1;
-    ShowGroupSelection ();
-  }
+	public void ShowSideSelection ()
+	{
+		Connect.gameObject.SetActive (false);
+		GroupSelect.gameObject.SetActive (false);
+		SideSelect.gameObject.SetActive (true);
+		Waiting.gameObject.SetActive (false);
+	}
 
-  public void OnGroupSelect (int team)
-  {
-    selectedGroup = team;
-    ShowSideSelection ();
-  }
+	public void ShowWaiting (bool showBackButton)
+	{
+		BackButton.gameObject.SetActive (showBackButton);
+		PlayerStatus.gameObject.SetActive (!showBackButton);
 
-  public void OnSideSelect (int side)
-  {
-    selectedSide = side;
-    ShowWaiting ();
-  }
+		Connect.gameObject.SetActive (false);
+		GroupSelect.gameObject.SetActive (false);
+		SideSelect.gameObject.SetActive (false);
+		Waiting.gameObject.SetActive (true);
+	}
+
+	public void OnHostButton ()
+	{
+		netManager.StartGameServer ();
+		ShowWaiting (false);
+	}
+
+	public void OnConnectButton ()
+	{
+		string ip = string.IsNullOrEmpty (IpInput.text) ? (IpInput.placeholder as Text).text : IpInput.text;
+		netManager.StartClient (ip);
+		ShowGroupSelection ();
+	}
+
+	public void OnConnectAsGameViewClient ()
+	{
+		string ip = string.IsNullOrEmpty (IpInput.text) ? (IpInput.placeholder as Text).text : IpInput.text;
+		netManager.StartGameViewClient (ip);
+		ShowGroupSelection ();
+	}
+
+	public void OnBackButton ()
+	{
+		netManager.LeaveSide ();
+		netManager.LeaveGroup ();
+		ShowGroupSelection ();
+	}
+
+	public void OnGroupSelect (int team)
+	{
+		ShowSideSelection ();
+		netManager.JoinGroup (team);
+	}
+
+	public void OnSideSelect (int side)
+	{
+		ShowWaiting (true);
+		netManager.JoinSide (side);
+	}
+
+	private void UpdateText ()
+	{
+		int a = gameState.GetPlayerInGroup (Player.GROUP_A);
+		int b = gameState.GetPlayerInGroup (Player.GROUP_B);
+
+		int aLeft = gameState.GetPlayerOnSide (Player.GROUP_A, Player.SIDE_LEFT);
+		int aRight = gameState.GetPlayerOnSide (Player.GROUP_A, Player.SIDE_RIGHT);
+
+		int bLeft = gameState.GetPlayerOnSide (Player.GROUP_B, Player.SIDE_LEFT);
+		int bRight = gameState.GetPlayerOnSide (Player.GROUP_B, Player.SIDE_RIGHT);
+
+		GroupAText.text = string.Format ("Group A: {0}", a);
+		GroupALeft.text = string.Format ("Left: {0}", aLeft);
+		GroupARight.text = string.Format ("Right: {0}", aRight);
+
+		GroupBText.text = string.Format ("Group B: {0}", b);
+		GroupBLeft.text = string.Format ("Left: {0}", bLeft);
+		GroupBRight.text = string.Format ("Right: {0}", bRight);
+	}
 }
