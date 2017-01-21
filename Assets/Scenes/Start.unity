@@ -122,7 +122,7 @@ MonoBehaviour:
   m_NetworkPort: 7777
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
-  m_NetworkAddress: 35.156.204.229
+  m_NetworkAddress: 35.157.38.80
   m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
@@ -200,8 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78801a90515094cf98912433896648d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GroupCount: 0
-  SideCount: 0
 --- !u!1 &1228202499
 GameObject:
   m_ObjectHideFlags: 0
