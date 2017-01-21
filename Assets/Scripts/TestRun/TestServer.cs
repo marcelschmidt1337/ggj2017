@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Networking.NetworkSystem;
 
 public class TestServer : NetworkManager
 {
@@ -22,6 +23,8 @@ public class TestServer : NetworkManager
 
     private void OnStopRowing(NetworkMessage netMsg)
     {
+        var msg = netMsg.ReadMessage<IntegerMessage>();
+        NetworkServer.SendToClient(worldClientId, (short)CustomMsgType.Test, msg);
     }
 
     private void OnStartRowing(NetworkMessage netMsg)
