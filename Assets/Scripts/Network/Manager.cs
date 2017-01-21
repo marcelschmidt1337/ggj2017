@@ -54,7 +54,8 @@ public class Manager : NetworkManager
 
   private void OnGUI ()
   {
-	if (serverStarted || client != null)
+
+	if (!serverStarted || client != null)
 	{
 	  if (GUILayout.Button ("Server"))
 	  {
@@ -78,6 +79,7 @@ public class Manager : NetworkManager
 	}
 
 	GUILayout.Label (lastPullTime);
+
 
   }
 
