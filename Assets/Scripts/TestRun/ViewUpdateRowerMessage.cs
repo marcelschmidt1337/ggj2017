@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class SingleRowProperties : MessageBase
+public class ViewUpdateRowerMessage : MessageBase
 {
-    int Id;
-    float Duration;
+    public int Id;
+    public float Duration;
 
     public override void Serialize(NetworkWriter writer)
     {

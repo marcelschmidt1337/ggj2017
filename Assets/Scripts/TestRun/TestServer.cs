@@ -25,7 +25,10 @@ public class TestServer : NetworkManager
     private void OnStopRowing(NetworkMessage netMsg)
     {
         RowerData[netMsg.conn.connectionId].Stop = DateTime.Now;
-        NetworkServer.SendToClient(WorldClientId, (short)CustomMsgType.Test, );
+        var data = RowerData[netMsg.conn.connectionId];
+
+        var updateMsg = new ViewUpdateRowerMessage { Id = netMsg.conn.connectionId, Duration = (float)(data.Stop - data.Start).TotalMilliseconds };
+        NetworkServer.SendToClient(WorldClientId, (short)CustomMsgType.UpdateFromFinishedRow, updateMsg);
     }
 
     private void OnStartRowing(NetworkMessage netMsg)

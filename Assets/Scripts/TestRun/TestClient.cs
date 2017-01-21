@@ -30,7 +30,7 @@ public class TestClient : NetworkManager
         {
             if (CountdownWait <= 0)
             {
-                //client.Send (MsgType.Highest+1, new IntegerMessage (0));
+                client.Send ((short)CustomMsgType.StopRowing, new IntegerMessage (0));
                 View.StartRowing();
                 MoveDuration = Random.Range(0.5f, 4);
                 View.SetAnimationDuration(MoveDuration);
@@ -49,7 +49,7 @@ public class TestClient : NetworkManager
             {
                 WaitDuration = Random.Range(1, 3);
                 CountdownWait = WaitDuration;
-                //client.Send(MsgType.Highest + 2, new IntegerMessage(0));
+                client.Send((short)CustomMsgType.StartRowing, new IntegerMessage(0));
                 View.StopRowing();
                 IsMoving = false;
             }

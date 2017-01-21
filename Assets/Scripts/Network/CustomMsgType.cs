@@ -4,13 +4,14 @@ using UnityEngine;
 
 public enum CustomMsgType
 {
-    JoinGroup = MsgType.Highest + 1,
+    JoinGroup = 41 + 8 + 1,
     LeaveGroup,
     JoinSide,
     LeaveSide,
     PlayerStatus,
     StartRowing,
     StopRowing,
+    UpdateFromFinishedRow,
 
     Test = 99,
     RegisterView = 100
