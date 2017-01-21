@@ -22,7 +22,7 @@ public class TestClient : NetworkManager
     // Update is called once per frame
     void Update()
     {
-        if (client == null)
+        if (client == null || !client.isConnected)
         {
             return;
         }
@@ -30,9 +30,9 @@ public class TestClient : NetworkManager
         {
             if (CountdownWait <= 0)
             {
-                client.Send ((short)CustomMsgType.StopRowing, new IntegerMessage (0));
+                client.Send ((short)CustomMsgType.StartRowing, new IntegerMessage (0));
                 View.StartRowing();
-                MoveDuration = Random.Range(0.5f, 4);
+				MoveDuration = 2; // Random.Range(0.5f, 4);
                 View.SetAnimationDuration(MoveDuration);
                 CountdownMove = MoveDuration;
                 IsMoving = true;
@@ -48,8 +48,8 @@ public class TestClient : NetworkManager
             if (CountdownMove <= 0)
             {
                 WaitDuration = Random.Range(1, 3);
-                CountdownWait = WaitDuration;
-                client.Send((short)CustomMsgType.StartRowing, new IntegerMessage(0));
+				CountdownWait = 6; // WaitDuration;
+                client.Send((short)CustomMsgType.StopRowing, new IntegerMessage(0));
                 View.StopRowing();
                 IsMoving = false;
             }

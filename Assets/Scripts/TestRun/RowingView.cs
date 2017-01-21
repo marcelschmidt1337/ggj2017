@@ -5,6 +5,8 @@ using UnityEngine;
 public class RowingView : MonoBehaviour {
 
     public Animator Animator;
+
+	public int Id; 
     private const float AnimationLength = 1.292f;
 	// Use this for initialization
 	public void StartRowing () {
@@ -18,6 +20,6 @@ public class RowingView : MonoBehaviour {
 
     public void SetAnimationDuration(float duration)
     {
-        Animator.speed = duration / AnimationLength;
+        Animator.speed =  AnimationLength / duration ;
     }
 }

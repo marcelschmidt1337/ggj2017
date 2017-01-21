@@ -29,7 +29,7 @@ public class TestServer : NetworkManager
         var data = RowerData[netMsg.conn.connectionId];
         data.Stop = DateTime.Now;
 
-        var updateMsg = new ViewUpdateRowerMessage { Id = netMsg.conn.connectionId, Duration = (float)(data.Stop - data.Start).TotalMilliseconds };
+        var updateMsg = new ViewUpdateRowerMessage { Id = netMsg.conn.connectionId, Duration = (float)(data.Stop - data.Start).TotalSeconds };
 
         if (WorldClientIdSet)
         {
