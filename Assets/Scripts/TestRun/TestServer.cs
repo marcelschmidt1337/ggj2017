@@ -8,6 +8,7 @@ using UnityEngine.Networking.NetworkSystem;
 public class TestServer : NetworkManager
 {
     private int WorldClientId;
+    private bool WorldClientIdSet = false;
     private Dictionary<int, RowerData> RowerData = new Dictionary<int, RowerData>();
 
     // Use this for initialization
@@ -17,18 +18,23 @@ public class TestServer : NetworkManager
         NetworkServer.RegisterHandler((short)CustomMsgType.StartRowing, OnStartRowing);
         NetworkServer.RegisterHandler((short)CustomMsgType.StopRowing, OnStopRowing);
         NetworkServer.RegisterHandler((short)CustomMsgType.RegisterView, (netMsg) =>
-       {
-           WorldClientId = netMsg.conn.connectionId;
-       });
+        {
+            WorldClientId = netMsg.conn.connectionId;
+            WorldClientIdSet = true;
+        });
     }
 
     private void OnStopRowing(NetworkMessage netMsg)
     {
-        RowerData[netMsg.conn.connectionId].Stop = DateTime.Now;
         var data = RowerData[netMsg.conn.connectionId];
+        data.Stop = DateTime.Now;
 
         var updateMsg = new ViewUpdateRowerMessage { Id = netMsg.conn.connectionId, Duration = (float)(data.Stop - data.Start).TotalMilliseconds };
-        NetworkServer.SendToClient(WorldClientId, (short)CustomMsgType.UpdateFromFinishedRow, updateMsg);
+
+        if (WorldClientIdSet)
+        {
+            NetworkServer.SendToClient(WorldClientId, (short)CustomMsgType.UpdateFromFinishedRow, updateMsg);
+        }
     }
 
     private void OnStartRowing(NetworkMessage netMsg)

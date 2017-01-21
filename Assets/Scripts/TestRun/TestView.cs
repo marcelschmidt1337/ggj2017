@@ -1,0 +1,16 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TestView : NetworkManager {
+
+	// Use this for initialization
+	void Start () {
+        client = StartClient();
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
