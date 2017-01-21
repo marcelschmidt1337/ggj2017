@@ -1,0 +1,303 @@
+fileFormatVersion: 2
+guid: a7b824d917eac324e8c074ccbf307803
+timeCreated: 1484955427
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Beany1
+    100002: Beany1 (2)
+    100004: Bench
+    100006: Bench (2)
+    100008: Bench (3)
+    100010: Bench (4)
+    100012: Bench (5)
+    100014: Bench (6)
+    100016: Bench (7)
+    100018: Boat_Back
+    100020: Boat_Back (2)
+    100022: Boat_Back (3)
+    100024: Boat_Back (4)
+    100026: Boat_Mid
+    100028: Boat_Mid (2)
+    100030: Boat_Mid (3)
+    100032: Boat_Mid (4)
+    100034: Boat_Mid (5)
+    100036: Boat_Mid (6)
+    100038: Boat_Mid (7)
+    100040: //RootNode
+    100042: Group Locator
+    100044: Group Locator (2)
+    100046: Mesh
+    100048: Person_01
+    100050: Person_01 (10)
+    100052: Person_01 (11)
+    100054: Person_01 (12)
+    100056: Person_01 (13)
+    100058: Person_01 (14)
+    100060: Person_01 (2)
+    100062: Person_01 (3)
+    100064: Person_01 (4)
+    100066: Person_01 (5)
+    100068: Person_01 (6)
+    100070: Person_01 (7)
+    100072: Person_01 (8)
+    100074: Person_01 (9)
+    100076: Rudder
+    100078: Rudder (10)
+    100080: Rudder (11)
+    100082: Rudder (12)
+    100084: Rudder (13)
+    100086: Rudder (14)
+    100088: Rudder (2)
+    100090: Rudder (3)
+    100092: Rudder (4)
+    100094: Rudder (5)
+    100096: Rudder (6)
+    100098: Rudder (7)
+    100100: Rudder (8)
+    100102: Rudder (9)
+    100104: Tophat
+    100106: Tophat (2)
+    100108: VikingHelm
+    100110: VikingHelm (2)
+    400000: Beany1
+    400002: Beany1 (2)
+    400004: Bench
+    400006: Bench (2)
+    400008: Bench (3)
+    400010: Bench (4)
+    400012: Bench (5)
+    400014: Bench (6)
+    400016: Bench (7)
+    400018: Boat_Back
+    400020: Boat_Back (2)
+    400022: Boat_Back (3)
+    400024: Boat_Back (4)
+    400026: Boat_Mid
+    400028: Boat_Mid (2)
+    400030: Boat_Mid (3)
+    400032: Boat_Mid (4)
+    400034: Boat_Mid (5)
+    400036: Boat_Mid (6)
+    400038: Boat_Mid (7)
+    400040: //RootNode
+    400042: Group Locator
+    400044: Group Locator (2)
+    400046: Mesh
+    400048: Person_01
+    400050: Person_01 (10)
+    400052: Person_01 (11)
+    400054: Person_01 (12)
+    400056: Person_01 (13)
+    400058: Person_01 (14)
+    400060: Person_01 (2)
+    400062: Person_01 (3)
+    400064: Person_01 (4)
+    400066: Person_01 (5)
+    400068: Person_01 (6)
+    400070: Person_01 (7)
+    400072: Person_01 (8)
+    400074: Person_01 (9)
+    400076: Rudder
+    400078: Rudder (10)
+    400080: Rudder (11)
+    400082: Rudder (12)
+    400084: Rudder (13)
+    400086: Rudder (14)
+    400088: Rudder (2)
+    400090: Rudder (3)
+    400092: Rudder (4)
+    400094: Rudder (5)
+    400096: Rudder (6)
+    400098: Rudder (7)
+    400100: Rudder (8)
+    400102: Rudder (9)
+    400104: Tophat
+    400106: Tophat (2)
+    400108: VikingHelm
+    400110: VikingHelm (2)
+    2300000: Beany1
+    2300002: Beany1 (2)
+    2300004: Bench
+    2300006: Bench (2)
+    2300008: Bench (3)
+    2300010: Bench (4)
+    2300012: Bench (5)
+    2300014: Bench (6)
+    2300016: Bench (7)
+    2300018: Boat_Back
+    2300020: Boat_Back (2)
+    2300022: Boat_Back (3)
+    2300024: Boat_Back (4)
+    2300026: Boat_Mid
+    2300028: Boat_Mid (2)
+    2300030: Boat_Mid (3)
+    2300032: Boat_Mid (4)
+    2300034: Boat_Mid (5)
+    2300036: Boat_Mid (6)
+    2300038: Boat_Mid (7)
+    2300040: Person_01
+    2300042: Person_01 (10)
+    2300044: Person_01 (11)
+    2300046: Person_01 (12)
+    2300048: Person_01 (13)
+    2300050: Person_01 (14)
+    2300052: Person_01 (2)
+    2300054: Person_01 (3)
+    2300056: Person_01 (4)
+    2300058: Person_01 (5)
+    2300060: Person_01 (6)
+    2300062: Person_01 (7)
+    2300064: Person_01 (8)
+    2300066: Person_01 (9)
+    2300068: Rudder
+    2300070: Rudder (10)
+    2300072: Rudder (11)
+    2300074: Rudder (12)
+    2300076: Rudder (13)
+    2300078: Rudder (14)
+    2300080: Rudder (2)
+    2300082: Rudder (3)
+    2300084: Rudder (4)
+    2300086: Rudder (5)
+    2300088: Rudder (6)
+    2300090: Rudder (7)
+    2300092: Rudder (8)
+    2300094: Rudder (9)
+    2300096: Tophat
+    2300098: Tophat (2)
+    2300100: VikingHelm
+    2300102: VikingHelm (2)
+    3300000: Beany1
+    3300002: Beany1 (2)
+    3300004: Bench
+    3300006: Bench (2)
+    3300008: Bench (3)
+    3300010: Bench (4)
+    3300012: Bench (5)
+    3300014: Bench (6)
+    3300016: Bench (7)
+    3300018: Boat_Back
+    3300020: Boat_Back (2)
+    3300022: Boat_Back (3)
+    3300024: Boat_Back (4)
+    3300026: Boat_Mid
+    3300028: Boat_Mid (2)
+    3300030: Boat_Mid (3)
+    3300032: Boat_Mid (4)
+    3300034: Boat_Mid (5)
+    3300036: Boat_Mid (6)
+    3300038: Boat_Mid (7)
+    3300040: Person_01
+    3300042: Person_01 (10)
+    3300044: Person_01 (11)
+    3300046: Person_01 (12)
+    3300048: Person_01 (13)
+    3300050: Person_01 (14)
+    3300052: Person_01 (2)
+    3300054: Person_01 (3)
+    3300056: Person_01 (4)
+    3300058: Person_01 (5)
+    3300060: Person_01 (6)
+    3300062: Person_01 (7)
+    3300064: Person_01 (8)
+    3300066: Person_01 (9)
+    3300068: Rudder
+    3300070: Rudder (10)
+    3300072: Rudder (11)
+    3300074: Rudder (12)
+    3300076: Rudder (13)
+    3300078: Rudder (14)
+    3300080: Rudder (2)
+    3300082: Rudder (3)
+    3300084: Rudder (4)
+    3300086: Rudder (5)
+    3300088: Rudder (6)
+    3300090: Rudder (7)
+    3300092: Rudder (8)
+    3300094: Rudder (9)
+    3300096: Tophat
+    3300098: Tophat (2)
+    3300100: VikingHelm
+    3300102: VikingHelm (2)
+    4300000: Person_01
+    4300002: Rudder (5)
+    4300004: Bench (2)
+    4300006: Boat_Mid
+    4300008: Beany1
+    4300010: Boat_Back
+    4300012: VikingHelm
+    4300014: Boat_Back (2)
+    4300016: Tophat
+    4300018: Bench
+    4300020: Bench (4)
+    4300022: Bench (3)
+  materials:
+    importMaterials: 1
+    materialName: 1
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
