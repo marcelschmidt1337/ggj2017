@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum CustomMsgType
+public enum CustomMsgType
 {
     JoinGroup = MsgType.Highest + 1,
     LeaveGroup,
