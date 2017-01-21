@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: -822479833, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NetworkPort: 8080
+  m_NetworkPort: 7777
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
   m_NetworkAddress: localhost
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MaxDelay: 0.01
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 0}
-  m_AutoCreatePlayer: 0
+  m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
   m_OfflineScene: 
   m_OnlineScene: 
@@ -179,7 +179,7 @@ MonoBehaviour:
     m_ReactorMaximumSentMessages: 1024
     m_MaxPacketSize: 2000
   m_Channels: 
-  m_UseWebSockets: 1
+  m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
