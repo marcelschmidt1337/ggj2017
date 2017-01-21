@@ -18,8 +18,11 @@ public class GameState : MonoBehaviour
 	{
 		var newPlayer = new Player ();
 		newPlayer.Id = id;
+		newPlayer.Group = groupId;
+		newPlayer.Side = sideId;
 
 		connectedPlayers.Add (newPlayer);
+		OnGameStateChanged ();
 	}
 
 	public void RemovePlayer (int id)
@@ -28,6 +31,7 @@ public class GameState : MonoBehaviour
 		if (player != null)
 		{
 			connectedPlayers.Remove (player);
+			OnGameStateChanged ();
 		}
 	}
 
@@ -37,6 +41,7 @@ public class GameState : MonoBehaviour
 		if (player != null)
 		{
 			player.Group = groupId;
+			OnGameStateChanged ();
 		}
 	}
 
@@ -59,6 +64,7 @@ public class GameState : MonoBehaviour
 		if (player != null)
 		{
 			player.Side = sideId;
+			OnGameStateChanged ();
 		}
 	}
 
