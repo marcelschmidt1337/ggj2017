@@ -16,7 +16,8 @@ public class Manager : NetworkManager
 
   private bool serverStarted = false;
   private int worldClientId;
-  private string lastPullTime;
+  private string lastPullTime = "NOTSET";
+	public UnityEngine.UI.Text PullTimeText; 
 
 
   public void JoinGroup (int group)
@@ -55,18 +56,25 @@ public class Manager : NetworkManager
   private void OnGUI ()
   {
 
-	if (!serverStarted || client != null)
-	{
-	  if (GUILayout.Button ("Server"))
-	  {
-		StartServerAndRegister ();
-	  }
-	  else if (GUILayout.Button ("Client"))
-	  {
-		client = StartClient ();
-	  }
-
+	
+	if (!serverStarted) {
+		if (GUILayout.Button("Server")) {
+			StartServerAndRegister();
+		}
+	} else {
+		GUILayout.Label("Server running"); 
 	}
+
+
+	if (client == null) {
+		if (GUILayout.Button("Client")) {
+			client = StartClient();
+		}
+	}
+	else {
+		GUILayout.Label("Client is running"); 
+	}
+	
 
 	if (GUILayout.Button ("TEST Ruderern"))
 	{
@@ -94,8 +102,11 @@ public class Manager : NetworkManager
 	NetworkServer.RegisterHandler (99, (netMsg) =>
 	{
 	  var msg = netMsg.ReadMessage<IntegerMessage> ();
-	  NetworkServer.SendToClient (worldClientId, 99, msg);
-	  lastPullTime = msg.value.ToString() + System.DateTime.Now.Millisecond.ToString(); 
+		this.PullTimeText.text = lastPullTime; 
+		lastPullTime = "SEND START: " + msg.value.ToString() + System.DateTime.Now.Millisecond.ToString();
+		NetworkServer.SendToClient (worldClientId, 99, msg);
+		lastPullTime = "SEND DONE: " + msg.value.ToString() + System.DateTime.Now.Millisecond.ToString();
+
 	});
 	NetworkServer.RegisterHandler (100, (netMsg) =>
 	{
