@@ -1,15 +1,25 @@
 fileFormatVersion: 2
-guid: 387bdcdec3442344d8c599fd00ae520e
-timeCreated: 1485011006
+guid: 1a3bea506d7980c47995df20232c2d51
+timeCreated: 1485020825
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: Water
+    100004: Water2
     400000: //RootNode
+    400002: Water
+    400004: Water2
+    2300000: Water
+    2300002: Water2
+    3300000: Water
+    3300002: Water2
+    4300000: Water2
+    4300002: Water
   materials:
     importMaterials: 1
-    materialName: 0
+    materialName: 1
     materialSearch: 1
   animations:
     legacyGenerateAnimations: 4
@@ -47,8 +57,8 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 60
-    normalImportMode: 0
+    normalSmoothAngle: 0
+    normalImportMode: 1
     tangentImportMode: 3
   importAnimation: 1
   copyAvatar: 0
