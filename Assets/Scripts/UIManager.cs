@@ -3,68 +3,97 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-  [Header ("UI Panels")]
-  public GameObject GroupSelect;
-  public GameObject SideSelect;
-  public GameObject Waiting;
+	[Header ("UI Panels")]
+	public GameObject Connect;
+	public GameObject GroupSelect;
+	public GameObject SideSelect;
+	public GameObject Waiting;
 
-  [Header ("Group Selection")]
-  public Text TeamAText;
-  public Button TeamAButton;
-  public Text TeamBText;
-  public Button TeamBButton;
+	[Header ("Connect")]
+	public InputField IpInput;
 
-  [Header ("Side Selection")]
-  public Text LeftText;
-  public Button LeftButton;
-  public Text RightText;
-  public Button RightButton;
+	[Header ("Waiting For Start")]
+	public Button BackButton;
 
-  private int selectedGroup = -1;
-  private int selectedSide = -1;
+	private Manager netManager;
 
-  private void OnEnable ()
-  {
-    ShowGroupSelection ();
-  }
+	private void OnEnable ()
+	{
+		ShowConnect ();
+		var gameManager = GameObject.FindGameObjectWithTag ("GameManager");
+		netManager = gameManager.GetComponent<Manager> ();
+	}
 
-  public void ShowGroupSelection ()
-  {
-    GroupSelect.gameObject.SetActive (true);
-    SideSelect.gameObject.SetActive (false);
-    Waiting.gameObject.SetActive (false);
-  }
+	public void ShowConnect ()
+	{
+		Connect.gameObject.SetActive (true);
+		GroupSelect.gameObject.SetActive (false);
+		SideSelect.gameObject.SetActive (false);
+		Waiting.gameObject.SetActive (false);
+	}
 
-  public void ShowSideSelection ()
-  {
-    GroupSelect.gameObject.SetActive (false);
-    SideSelect.gameObject.SetActive (true);
-    Waiting.gameObject.SetActive (false);
-  }
+	public void ShowGroupSelection ()
+	{
+		Connect.gameObject.SetActive (false);
+		GroupSelect.gameObject.SetActive (true);
+		SideSelect.gameObject.SetActive (false);
+		Waiting.gameObject.SetActive (false);
+	}
 
-  public void ShowWaiting ()
-  {
-    GroupSelect.gameObject.SetActive (false);
-    SideSelect.gameObject.SetActive (false);
-    Waiting.gameObject.SetActive (true);
-  }
+	public void ShowSideSelection ()
+	{
+		Connect.gameObject.SetActive (false);
+		GroupSelect.gameObject.SetActive (false);
+		SideSelect.gameObject.SetActive (true);
+		Waiting.gameObject.SetActive (false);
+	}
 
-  public void OnBackButton ()
-  {
-    selectedGroup = -1;
-    selectedSide = -1;
-    ShowGroupSelection ();
-  }
+	public void ShowWaiting (bool showBackButton)
+	{
+		BackButton.gameObject.SetActive (showBackButton);
 
-  public void OnGroupSelect (int team)
-  {
-    selectedGroup = team;
-    ShowSideSelection ();
-  }
+		Connect.gameObject.SetActive (false);
+		GroupSelect.gameObject.SetActive (false);
+		SideSelect.gameObject.SetActive (false);
+		Waiting.gameObject.SetActive (true);
+	}
 
-  public void OnSideSelect (int side)
-  {
-    selectedSide = side;
-    ShowWaiting ();
-  }
+	public void OnHostButton ()
+	{
+		netManager.StartGameServer ();
+		ShowWaiting (false);
+	}
+
+	public void OnConnectButton ()
+	{
+		string ip = string.IsNullOrEmpty (IpInput.text) ? (IpInput.placeholder as Text).text : IpInput.text;
+		netManager.StartClient (ip);
+		ShowGroupSelection ();
+	}
+
+	public void OnConnectAsGameViewClient ()
+	{
+		string ip = string.IsNullOrEmpty (IpInput.text) ? (IpInput.placeholder as Text).text : IpInput.text;
+		netManager.StartGameViewClient (ip);
+		ShowGroupSelection ();
+	}
+
+	public void OnBackButton ()
+	{
+		netManager.LeaveSide ();
+		netManager.LeaveGroup ();
+		ShowGroupSelection ();
+	}
+
+	public void OnGroupSelect (int team)
+	{
+		ShowSideSelection ();
+		netManager.JoinGroup (team);
+	}
+
+	public void OnSideSelect (int side)
+	{
+		ShowWaiting (true);
+		netManager.JoinSide (side);
+	}
 }
