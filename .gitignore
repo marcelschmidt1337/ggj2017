@@ -32,3 +32,5 @@ Assets/UnityVS
 UnityVS.meta
 bin/
 .vs
+/Assets/ShaderForge.meta
+/Assets/ShaderForge
