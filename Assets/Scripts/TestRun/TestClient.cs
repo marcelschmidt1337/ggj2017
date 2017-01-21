@@ -13,17 +13,22 @@ public class TestClient : NetworkManager
     private float WaitDuration;
 
     bool IsMoving = false;
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
         client = StartClient();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (client == null)
+        {
+            return;
+        }
         if (!IsMoving)
         {
-            if(CountdownWait<=0)
+            if (CountdownWait <= 0)
             {
                 //client.Send (MsgType.Highest+1, new IntegerMessage (0));
                 View.StartRowing();
@@ -49,5 +54,5 @@ public class TestClient : NetworkManager
                 IsMoving = false;
             }
         }
-	}
+    }
 }

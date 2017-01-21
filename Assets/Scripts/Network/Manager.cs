@@ -3,18 +3,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 
-enum CustomMsgType
-{
-    JoinGroup = MsgType.Highest + 1,
-    LeaveGroup,
-    JoinSide,
-    LeaveSide,
-    PlayerStatus,
-
-    Test = 99,
-    RegisterView = 100
-}
-
 public class Manager : NetworkManager
 {
     private bool serverStarted = false;
