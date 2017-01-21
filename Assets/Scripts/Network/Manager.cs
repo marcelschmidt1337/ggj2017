@@ -15,6 +15,9 @@ public class Manager : NetworkManager
   }
 
   private bool serverStarted = false;
+  private int worldClientId;
+  private int lastPullTime;
+
 
   public void JoinGroup (int group)
   {
@@ -61,7 +64,20 @@ public class Manager : NetworkManager
       {
         client = StartClient ();
       }
+
     }
+
+    if (GUILayout.Button ("TEST Ruderern"))
+    {
+      client.Send (99, new IntegerMessage (1337));
+    }
+
+    if (GUILayout.Button ("TEST WorldView"))
+    {
+      client.Send (100, new IntegerMessage (0));
+    }
+
+    GUILayout.Label (System.DateTime.Now.Millisecond.ToString () + " : " + lastPullTime.ToString ());
 
   }
 
@@ -72,6 +88,17 @@ public class Manager : NetworkManager
     NetworkServer.RegisterHandler ((short)CustomMsgType.LeaveGroup, OnLeaveGroup);
     NetworkServer.RegisterHandler ((short)CustomMsgType.JoinSide, OnJoinSide);
     NetworkServer.RegisterHandler ((short)CustomMsgType.LeaveSide, OnLeaveSide);
+
+    NetworkServer.RegisterHandler (99, (netMsg) =>
+    {
+      var msg = netMsg.ReadMessage<IntegerMessage> ();
+      NetworkServer.SendToClient (worldClientId, 99, msg);
+      lastPullTime = msg.value;
+    });
+    NetworkServer.RegisterHandler (100, (netMsg) =>
+    {
+      worldClientId = netMsg.conn.connectionId;
+    });
   }
 
   private void OnJoinGroup (NetworkMessage netMsg)
