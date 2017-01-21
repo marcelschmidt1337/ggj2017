@@ -87,7 +87,13 @@ public class Manager : NetworkManager
 	if (GUILayout.Button ("TEST WorldView"))
 	{
 	  client.Send ((short)CustomMsgType.RegisterView, new IntegerMessage (0));
-	}
+      client.RegisterHandler((short)CustomMsgType.Test, (netMsg) =>
+      {
+          var msg = netMsg.ReadMessage<IntegerMessage>();
+          this.PullTimeText.text = lastPullTime;
+          lastPullTime = "Received: " + msg.value.ToString() + System.DateTime.Now.Millisecond.ToString();
+      });
+    }
 
 	GUILayout.Label (lastPullTime);
 
