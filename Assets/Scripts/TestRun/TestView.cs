@@ -38,7 +38,8 @@ public class TestView : NetworkManager
 	public void SendGameOver (int winnerGroupId)
 	{
 		Debug.Log ("Send Game Over - Winner: " + winnerGroupId);
-		client.Send ((short)CustomMsgType.GameOver, new IntegerMessage (winnerGroupId));
+		if (client != null)
+			client.Send( (short)CustomMsgType.GameOver, new IntegerMessage( winnerGroupId ) );
 		GameState.GameOver (winnerGroupId);
 	}
 
