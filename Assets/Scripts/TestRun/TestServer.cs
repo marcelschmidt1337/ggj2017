@@ -151,6 +151,7 @@ public class TestServer : NetworkManager
 		if (conn.connectionId == GameViewClientId)
 		{
 			GameState.StartGame ();
+			NetworkServer.SendToAll ((short)CustomMsgType.StartGame, new EmptyMessage ());
 		}
 		base.OnServerReady (conn);
 	}

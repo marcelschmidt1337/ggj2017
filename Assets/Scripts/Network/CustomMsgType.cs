@@ -13,6 +13,7 @@ public enum CustomMsgType
 	StopRowing,
 	UpdateFromFinishedRow,
 	UpdateGameState,
+	StartGame,
 	Test = 99,
 	RegisterView = 100
 }
