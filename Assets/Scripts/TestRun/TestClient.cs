@@ -64,6 +64,10 @@ public class TestClient : NetworkManager
 		}
 	}
 
+    public void ValueChanged(float value)
+    {
+
+    }
 
 
 	void Update ()
