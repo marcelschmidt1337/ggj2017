@@ -1777,7 +1777,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 862413608}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f60c0f601ebf2e241af9fd27b1d4557b, type: 3}
+  m_Script: {fileID: 11500000, guid: d4e288d431a47f642b96267d100481c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
@@ -1825,7 +1825,7 @@ MonoBehaviour:
     m_ReactorMaximumSentMessages: 1024
     m_MaxPacketSize: 2000
   m_Channels: 
-  m_UseWebSockets: 1
+  m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
@@ -1837,7 +1837,7 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  View: {fileID: 62896227}
+  View: {fileID: 0}
   Slider: {fileID: 1083291611}
   UIManager: {fileID: 1147981307}
 --- !u!4 &862413610
@@ -3011,7 +3011,7 @@ MonoBehaviour:
   GroupBLeft: {fileID: 486072836}
   GroupBRight: {fileID: 502756299}
   WorldView: {fileID: 0}
-  ClientView: {fileID: 862413609}
+  ClientView: {fileID: 0}
   IsPresenter: 0
   IsClient: 1
 --- !u!1 &1165753238
