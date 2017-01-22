@@ -1987,6 +1987,7 @@ MonoBehaviour:
   isNetworkActive: 0
   matchMaker: {fileID: 0}
   View: {fileID: 62896227}
+  Slider: {fileID: 1083291611}
 --- !u!4 &862413610
 Transform:
   m_ObjectHideFlags: 0

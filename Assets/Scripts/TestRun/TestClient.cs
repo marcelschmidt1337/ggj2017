@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
+using UnityEngine.UI;
 
 public class TestClient : NetworkManager
 {
 	public RowingView View;
+    public Slider Slider;
 	private float CountdownMove;
 	private float CountdownWait;
 	private float MoveDuration;
@@ -66,41 +66,21 @@ public class TestClient : NetworkManager
 
     public void ValueChanged(float value)
     {
-
-    }
-
-
-	void Update ()
-	{
 		if (client == null || !client.isConnected)
 		{
 			return;
 		}
+
 		if (!IsMoving)
 		{
-			if (CountdownWait <= 0)
-			{
-				client.Send ((short)CustomMsgType.StartRowing, new IntegerMessage (0));
-				View.StartRowing ();
-				MoveDuration = 2; // Random.Range(0.5f, 4);
-				View.SetAnimationDuration (MoveDuration);
-				CountdownMove = MoveDuration;
-				IsMoving = true;
-			}
-			else
-			{
-				CountdownWait -= Time.deltaTime;
-			}
+			client.Send((short)CustomMsgType.StartRowing, new IntegerMessage(0));
+			IsMoving = true;
 		}
 		else
 		{
-			CountdownMove -= Time.deltaTime;
-			if (CountdownMove <= 0)
+			if (value > 0.98f)
 			{
-				WaitDuration = Random.Range (1, 3);
-				CountdownWait = 6; // WaitDuration;
-				client.Send ((short)CustomMsgType.StopRowing, new IntegerMessage (0));
-				View.StopRowing ();
+				client.Send((short)CustomMsgType.StopRowing, new IntegerMessage(0));
 				IsMoving = false;
 			}
 		}
