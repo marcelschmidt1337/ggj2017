@@ -68,6 +68,11 @@ public class TestClient : NetworkManager
 		Debug.LogError ("CLIENT GAME STARTED");
 	}
 
+	public void ValueChanged (float value)
+	{
+
+	}
+
 	void Update ()
 	{
 		if (client == null || !client.isConnected)
