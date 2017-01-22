@@ -9,7 +9,6 @@ public class TestView : NetworkManager
 {
 	public GameState GameState { get; private set; }
 
-	public List<RowingView> Views;
 
 	ViewManager _ViewManager;
 	ViewManager ViewManager
