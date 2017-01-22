@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
 	public Text GroupBLeft;
 	public Text GroupBRight;
 
-	public GameObject ManyGuys; 
+	public GameObject ManyGuys;
 
 	[Header ("Game Over")]
 	public Text GameOverText;
@@ -64,6 +64,8 @@ public class UIManager : MonoBehaviour
 			gameState = WorldView.GameState;
 			gameState.OnGameStateChanged -= UpdateText;
 			gameState.OnGameStateChanged += UpdateText;
+			gameState.OnGameOver -= ShowGameOverScreen;
+			gameState.OnGameOver += ShowGameOverScreen;
 		}
 	}
 
@@ -73,8 +75,9 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
-		if (ManyGuys != null) {
-			ManyGuys.SetActive(false); 
+		if (ManyGuys != null)
+		{
+			ManyGuys.SetActive (false);
 		}
 		ClientUi.SetActive (false);
 		SetClientUiActive (false);
@@ -88,8 +91,9 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (true);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
-		if (ManyGuys != null) {
-			ManyGuys.SetActive(false);
+		if (ManyGuys != null)
+		{
+			ManyGuys.SetActive (false);
 		}
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
@@ -126,8 +130,9 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
-		if (ManyGuys != null) {
-			ManyGuys.SetActive(false);
+		if (ManyGuys != null)
+		{
+			ManyGuys.SetActive (false);
 		}
 		SetClientUiActive (true);
 		SetHatSelectionActive (false);
@@ -148,8 +153,9 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
-		if (ManyGuys != null) {
-			ManyGuys.SetActive(false);
+		if (ManyGuys != null)
+		{
+			ManyGuys.SetActive (false);
 		}
 		SetClientUiActive (false);
 		SetHatSelectionActive (true);
@@ -162,6 +168,12 @@ public class UIManager : MonoBehaviour
 		{
 			HatSelect.SetActive (active);
 		}
+	}
+
+	public void ShowGameOverScreen (int _)
+	{
+		//We Are presenter and don't care about the bool or winner id here
+		ShowGameOverScreen (false);
 	}
 
 	public void ShowGameOverScreen (bool winner)
@@ -222,8 +234,9 @@ public class UIManager : MonoBehaviour
 	public void OnStartButton ()
 	{
 		Waiting.SetActive (false);
-		if (ManyGuys != null) {
-			ManyGuys.SetActive(false);
+		if (ManyGuys != null)
+		{
+			ManyGuys.SetActive (false);
 		}
 		WorldView.SendStartGame ();
 	}
