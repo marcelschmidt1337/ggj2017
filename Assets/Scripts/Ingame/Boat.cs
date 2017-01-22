@@ -156,6 +156,10 @@ public class Boat : MonoBehaviour {
 	}
 
 	public void UpdateView (ViewInfo.Boat boatInfo) {
+		this.LeftSide = new Side("Left");
+		this.LeftSide = new Side("Right");
+		LeftSide.ExecuteRow = OnLeftSideRowed;
+		RightSide.ExecuteRow = OnRightSideRowed;
 		int numRows = boatInfo.Rows.Count;
 		if(this.InstantiatedRows.Count > 0) {
 			for(int i = 0; i < this.InstantiatedRows.Count; i++) {
@@ -169,6 +173,14 @@ public class Boat : MonoBehaviour {
 			rowInstance.transform.localPosition = this.FirstRowPosition + i * this.RowOffset;
 			rowScript.UpdateView( boatInfo.Rows[i] );
 			this.InstantiatedRows.Add( rowScript );
+			if(boatInfo.Rows[i].LeftSeat.Player != null)
+			{
+				this.LeftSide.Players.Add(boatInfo.Rows[i].LeftSeat.Player);
+			}
+			if (boatInfo.Rows[i].RightSeat.Player != null)
+			{
+				this.RightSide.Players.Add(boatInfo.Rows[i].RightSeat.Player);
+			}
 		}
 		this.BoatEndPiece.transform.localPosition = this.FirstRowPosition + (numRows - 1) * this.RowOffset;
 	}

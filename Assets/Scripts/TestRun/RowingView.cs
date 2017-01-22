@@ -10,12 +10,15 @@ public class RowingView : MonoBehaviour {
     private const float AnimationLength = 1.292f;
 	// Use this for initialization
 	public void StartRowing () {
-        Animator.SetTrigger("StartRowing");
+		ResetTrigger(); 
+		Animator.SetTrigger("StartRowing");
+		
 		StartCoroutine( Co_WaitForAnimationFinish() );
 	}
 	
 	// Update is called once per frame
 	public void StopRowing () {
+		ResetTrigger(); 
         Animator.SetTrigger("StopRowing");
 	}
 
@@ -29,5 +32,10 @@ public class RowingView : MonoBehaviour {
 	private IEnumerator Co_WaitForAnimationFinish () {
 		yield return new WaitForSeconds( this.duration );
 		StopRowing();
+	}
+
+	private void ResetTrigger() {
+		Animator.ResetTrigger("StopRowing");
+		Animator.ResetTrigger("StartRowing");
 	}
 }
