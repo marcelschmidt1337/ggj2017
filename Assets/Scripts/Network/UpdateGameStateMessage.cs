@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using LitJson; 
 
 public class UpdateGameStateMessage : MessageBase
 {
@@ -9,14 +10,16 @@ public class UpdateGameStateMessage : MessageBase
 
 	public override void Serialize (NetworkWriter writer)
 	{
-		string json = JsonUtility.ToJson (ConnectedPlayers);
-		Debug.LogError (json);
+		string json = JsonMapper.ToJson(ConnectedPlayers); 
+			//JsonUtility.ToJson (ConnectedPlayers);
+		Debug.LogError ("Send JSON: " + json);
 		writer.Write (json);
 	}
 
 	public override void Deserialize (NetworkReader reader)
 	{
 		string json = reader.ReadString ();
-		ConnectedPlayers = JsonUtility.FromJson<List<Player>> (json);
+		Debug.LogError("Received JSON: " + json); 
+		ConnectedPlayers = JsonMapper.ToObject<List<Player>> (json);
 	}
 }

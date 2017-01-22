@@ -123,14 +123,14 @@ public class UIManager : MonoBehaviour
 
 	private void UpdateText ()
 	{
-		int a = gameState.GetPlayerInGroup (Player.GROUP_A);
-		int b = gameState.GetPlayerInGroup (Player.GROUP_B);
+		int a = gameState.GetPlayerInGroup (PlayerConstants.GROUP_A);
+		int b = gameState.GetPlayerInGroup (PlayerConstants.GROUP_B);
 
-		int aLeft = gameState.GetPlayerOnSide (Player.GROUP_A, Player.SIDE_LEFT);
-		int aRight = gameState.GetPlayerOnSide (Player.GROUP_A, Player.SIDE_RIGHT);
+		int aLeft = gameState.GetPlayerOnSide (PlayerConstants.GROUP_A, PlayerConstants.SIDE_LEFT);
+		int aRight = gameState.GetPlayerOnSide (PlayerConstants.GROUP_A, PlayerConstants.SIDE_RIGHT);
 
-		int bLeft = gameState.GetPlayerOnSide (Player.GROUP_B, Player.SIDE_LEFT);
-		int bRight = gameState.GetPlayerOnSide (Player.GROUP_B, Player.SIDE_RIGHT);
+		int bLeft = gameState.GetPlayerOnSide (PlayerConstants.GROUP_B, PlayerConstants.SIDE_LEFT);
+		int bRight = gameState.GetPlayerOnSide (PlayerConstants.GROUP_B, PlayerConstants.SIDE_RIGHT);
 
 		GroupAText.text = string.Format ("Group A: {0}", a);
 		GroupALeft.text = string.Format ("Left: {0}", aLeft);

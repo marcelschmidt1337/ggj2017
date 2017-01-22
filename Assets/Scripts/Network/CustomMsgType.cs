@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum CustomMsgType
 {
-	JoinGroup = 41 + 8 + 1,
+	JoinGroup = 50,
 	LeaveGroup,
 	JoinSide,
 	LeaveSide,

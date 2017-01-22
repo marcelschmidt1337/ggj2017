@@ -19,14 +19,8 @@ public class TestServer : NetworkManager
 	// Use this for initialization
 	void Start ()
 	{
-		StartServer ();
-		NetworkServer.RegisterHandler ((short)CustomMsgType.StartRowing, OnStartRowing);
-		NetworkServer.RegisterHandler ((short)CustomMsgType.StopRowing, OnStopRowing);
-		NetworkServer.RegisterHandler ((short)CustomMsgType.RegisterView, (netMsg) =>
-		 {
-			 GameViewClientId = netMsg.conn.connectionId;
-			 GameViewClientSet = true;
-		 });
+		TryStartServer(); 
+		
 
 		GameState = new GameState ();
 	}
@@ -45,6 +39,14 @@ public class TestServer : NetworkManager
 			Debug.LogError ("Failed to start server!");
 			return;
 		}
+
+		NetworkServer.RegisterHandler((short)CustomMsgType.StartRowing, OnStartRowing);
+		NetworkServer.RegisterHandler((short)CustomMsgType.StopRowing, OnStopRowing);
+		NetworkServer.RegisterHandler((short)CustomMsgType.RegisterView, (netMsg) =>
+		{
+			GameViewClientId = netMsg.conn.connectionId;
+			GameViewClientSet = true;
+		});
 		NetworkServer.RegisterHandler ((short)CustomMsgType.JoinGroup, OnJoinGroup);
 		NetworkServer.RegisterHandler ((short)CustomMsgType.LeaveGroup, OnLeaveGroup);
 		NetworkServer.RegisterHandler ((short)CustomMsgType.JoinSide, OnJoinSide);
@@ -54,10 +56,6 @@ public class TestServer : NetworkManager
 		{
 			var msg = netMsg.ReadMessage<IntegerMessage> ();
 			NetworkServer.SendToClient (GameViewClientId, (short)CustomMsgType.Test, msg);
-		});
-		NetworkServer.RegisterHandler ((short)CustomMsgType.RegisterView, (netMsg) =>
-		{
-			GameViewClientId = netMsg.conn.connectionId;
 		});
 
 		Debug.Log ("Server started!");
@@ -89,7 +87,7 @@ public class TestServer : NetworkManager
 	{
 		var playerId = netMsg.conn.connectionId;
 
-		GameState.SetGroupId (playerId, Player.NO_GROUP);
+		GameState.SetGroupId (playerId, PlayerConstants.NO_GROUP);
 	}
 
 	private void OnJoinSide (NetworkMessage netMsg)
@@ -112,7 +110,7 @@ public class TestServer : NetworkManager
 	private void OnLeaveSide (NetworkMessage netMsg)
 	{
 		var playerId = netMsg.conn.connectionId;
-		GameState.SetSideId (playerId, Player.NO_SIDE);
+		GameState.SetSideId (playerId, PlayerConstants.NO_SIDE);
 
 		SendGameStateToView ();
 	}

@@ -23,7 +23,7 @@ public class TestView : NetworkManager
 
 	private IEnumerator Co_WaitForClientReady ()
 	{
-		while (client != null || !client.isConnected)
+		while (client == null || !client.isConnected)
 		{
 			yield return null;
 		}
