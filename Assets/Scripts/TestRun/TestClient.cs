@@ -18,13 +18,6 @@ public class TestClient : NetworkManager
 
 	bool IsMoving = false;
 
-<<<<<<< HEAD
-	public void JoinGroup(int group)
-	{
-		if (client != null)
-		{
-			client.Send((short)CustomMsgType.JoinGroup, new IntegerMessage(group));
-=======
 	private int GroupId = PlayerConstants.NO_GROUP;
 
 	public void JoinGroup (int group)
@@ -33,7 +26,6 @@ public class TestClient : NetworkManager
 		{
 			GroupId = group;
 			client.Send ((short)CustomMsgType.JoinGroup, new IntegerMessage (group));
->>>>>>> baf4b282d297de176e0c50fa74db98ea1eee0f57
 		}
 	}
 
@@ -41,12 +33,8 @@ public class TestClient : NetworkManager
 	{
 		if (client != null)
 		{
-<<<<<<< HEAD
-			client.Send((short)CustomMsgType.LeaveGroup, new EmptyMessage());
-=======
 			GroupId = PlayerConstants.NO_GROUP;
 			client.Send ((short)CustomMsgType.LeaveGroup, new EmptyMessage ());
->>>>>>> baf4b282d297de176e0c50fa74db98ea1eee0f57
 		}
 	}
 
@@ -126,8 +114,8 @@ public class TestClient : NetworkManager
 
 		if (value > .98)
 		{
-			Yeah.active = false;
-			Yeah.active = true;
+			Yeah.SetActive(false);
+			Yeah.SetActive(true);
 		}
 
 		if (!IsMoving)
