@@ -2179,6 +2179,7 @@ MonoBehaviour:
   View: {fileID: 0}
   Slider: {fileID: 1083291611}
   UIManager: {fileID: 1147981307}
+  Yeah: {fileID: 2009216458}
 --- !u!4 &862413610
 Transform:
   m_ObjectHideFlags: 0
@@ -2351,7 +2352,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 887805038}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 87}
   m_LocalScale: {x: 0.41883296, y: 0.41883317, z: 0.41883317}
   m_Children:
   - {fileID: 1612966257}
@@ -2360,8 +2361,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -164, y: 35}
-  m_SizeDelta: {x: 562, y: 1003}
+  m_AnchoredPosition: {x: -151, y: 27}
+  m_SizeDelta: {x: 1161, y: 964}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &887805040
 MonoBehaviour:
@@ -3629,6 +3630,7 @@ MonoBehaviour:
   HatSelect: {fileID: 360613814}
   Waiting: {fileID: 1797101351}
   ClientUi: {fileID: 20320334}
+  GameOver: {fileID: 626124208}
   IpInput: {fileID: 1484825642}
   BackButton: {fileID: 1659125749}
   PlayerStatus: {fileID: 1784364908}
@@ -3638,6 +3640,8 @@ MonoBehaviour:
   GroupBText: {fileID: 1992685237}
   GroupBLeft: {fileID: 486072836}
   GroupBRight: {fileID: 502756299}
+  ManyGuys: {fileID: 0}
+  GameOverText: {fileID: 0}
   WorldView: {fileID: 0}
   ClientView: {fileID: 862413609}
   IsPresenter: 0
@@ -4943,17 +4947,17 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1612966256}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 887805039}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 191, y: 45.050896}
-  m_SizeDelta: {x: 311.6, y: 345.2}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -69, y: -334}
+  m_SizeDelta: {x: 311.59998, y: 345.2}
+  m_Pivot: {x: 0.5, y: 0.49999997}
 --- !u!114 &1612966258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6237,6 +6241,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2005858061}
+--- !u!1 &2009216458 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1339896098696162, guid: f26ae7fe5fd46074288909105666cd9f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1325052283}
 --- !u!1 &2020325487
 GameObject:
   m_ObjectHideFlags: 0
