@@ -609,60 +609,6 @@ Prefab:
       propertyPath: goalTransform
       value: 
       objectReference: {fileID: 1634191599}
-    - target: {fileID: 1865499687555028, guid: 6daabbb6de3fdb54ba1140287db1431b, type: 2}
-      propertyPath: m_Name
-      value: BoatProgressUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 224994932903808610, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224994932903808610, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224994932903808610, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224777055490503282, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 44.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224513801108378384, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 42.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 224082249641907552, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 42.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 224399994573910970, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 43.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224063439873123378, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 42.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 224994932903808610, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: -9.700001
-      objectReference: {fileID: 0}
-    - target: {fileID: 224994932903808610, guid: 6daabbb6de3fdb54ba1140287db1431b,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6daabbb6de3fdb54ba1140287db1431b, type: 2}
   m_IsPrefabParent: 0
