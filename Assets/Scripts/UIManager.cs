@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 	public GameObject GroupSelect;
 	public GameObject SideSelect;
 	public GameObject Waiting;
+	public GameObject ClientUi;
 
 	[Header ("Connect")]
 	public InputField IpInput;
@@ -36,7 +37,7 @@ public class UIManager : MonoBehaviour
 		if (IsPresenter)
 		{
 			WorldView.StartWorldView ();
-			ShowWaiting (false);
+			ShowWaiting (true);
 		}
 		else
 		{
@@ -59,6 +60,8 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (false);
+		ClientUi.gameObject.SetActive(false);
+		SetClientUiActive(false);
 	}
 
 	public void ShowGroupSelection ()
@@ -67,6 +70,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (true);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (false);
+		SetClientUiActive(false);
 	}
 
 	public void ShowSideSelection ()
@@ -75,23 +79,35 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (true);
 		Waiting.gameObject.SetActive (false);
+		SetClientUiActive(false);
 	}
 
-	public void ShowWaiting (bool showBackButton)
+	public void ShowWaiting (bool showPlayerStatus)
 	{
-		BackButton.gameObject.SetActive (showBackButton);
-		PlayerStatus.gameObject.SetActive (!showBackButton);
+		PlayerStatus.gameObject.SetActive (showPlayerStatus);
 
 		Connect.gameObject.SetActive (false);
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (true);
+		SetClientUiActive(false);
 	}
 
-	public void OnHostButton ()
+	public void ShowClientUi()
 	{
-		//netManager.StartGameServer ();
-		ShowWaiting (false);
+		Connect.gameObject.SetActive (false);
+		GroupSelect.gameObject.SetActive (false);
+		SideSelect.gameObject.SetActive (false);
+		Waiting.gameObject.SetActive (false);
+		SetClientUiActive(true);
+	}
+
+	private void SetClientUiActive(bool active)
+	{
+		if (IsClient)
+		{
+			ClientUi.gameObject.SetActive(active);
+		}
 	}
 
 	public void OnConnectButton ()
@@ -109,6 +125,12 @@ public class UIManager : MonoBehaviour
 		ShowGroupSelection ();
 	}
 
+	public void OnStartButton ()
+	{
+		Waiting.SetActive(false); 
+		WorldView.SendStartGame ();
+	}
+
 	public void OnGroupSelect (int team)
 	{
 		ShowSideSelection ();
@@ -117,7 +139,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnSideSelect (int side)
 	{
-		ShowWaiting (true);
+		ShowWaiting (false);
 		ClientView.JoinSide (side);
 	}
 

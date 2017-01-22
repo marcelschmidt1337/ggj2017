@@ -101,7 +101,26 @@ public class Boat : MonoBehaviour {
 	public Side LeftSide = new Side("Left");
 	public Side RightSide = new Side("Right");
 
-	public void Row(Player player) {
+	List<BoatRow> InstantiatedRows = new List<BoatRow>(); 
+
+	public GameObject RowPrefab;
+	public Vector3 FirstRowPosition;
+	public Vector3 RowOffset;
+	public GameObject BoatEndPiece;
+
+	RowingView GetRower(Player player) {
+		foreach(var row in InstantiatedRows) {
+			if(row.LeftSeat.Player == player) {
+				return row.LeftSeat.rowingView;
+			}
+			if (row.RightSeat.Player == player) {
+				return row.RightSeat.rowingView;
+			}
+		}
+		return null;
+	}
+
+	public void Row(Player player, float rowDuration) {
 		switch (player.Side) {
 			case 0:
 				LeftSide.Row( player );
@@ -112,6 +131,10 @@ public class Boat : MonoBehaviour {
 			default:
 				throw new System.NotSupportedException();
 		}
+		// get rower view
+		var rower = GetRower( player );
+		rower.SetAnimationDuration( rowDuration );
+		rower.StartRowing();
 	}
 
 	void Start () {
@@ -130,5 +153,35 @@ public class Boat : MonoBehaviour {
 
 	void OnRightSideRowed(float force) {
 		GetComponent<BoatMovement>().RowRight( force );
+	}
+
+	public void UpdateView (ViewInfo.Boat boatInfo) {
+		this.LeftSide = new Side("Left");
+		this.LeftSide = new Side("Right");
+		LeftSide.ExecuteRow = OnLeftSideRowed;
+		RightSide.ExecuteRow = OnRightSideRowed;
+		int numRows = boatInfo.Rows.Count;
+		if(this.InstantiatedRows.Count > 0) {
+			for(int i = 0; i < this.InstantiatedRows.Count; i++) {
+				GameObject.Destroy( this.InstantiatedRows[i].gameObject );
+			}
+			this.InstantiatedRows.Clear();
+		}
+		for(int i = 0; i < numRows; i++) {
+			var rowInstance = GameObject.Instantiate( this.RowPrefab, transform );
+			var rowScript = rowInstance.GetComponent<BoatRow>();
+			rowInstance.transform.localPosition = this.FirstRowPosition + i * this.RowOffset;
+			rowScript.UpdateView( boatInfo.Rows[i] );
+			this.InstantiatedRows.Add( rowScript );
+			if(boatInfo.Rows[i].LeftSeat.Player != null)
+			{
+				this.LeftSide.Players.Add(boatInfo.Rows[i].LeftSeat.Player);
+			}
+			if (boatInfo.Rows[i].RightSeat.Player != null)
+			{
+				this.RightSide.Players.Add(boatInfo.Rows[i].RightSeat.Player);
+			}
+		}
+		this.BoatEndPiece.transform.localPosition = this.FirstRowPosition + (numRows - 1) * this.RowOffset;
 	}
 }

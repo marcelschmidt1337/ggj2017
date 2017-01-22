@@ -10,8 +10,17 @@ public class TestView : NetworkManager
 	public GameState GameState { get; private set; }
 
 	public List<RowingView> Views;
-	// Use this for initialization
 
+	ViewManager _ViewManager;
+	ViewManager ViewManager
+	{
+		get
+		{
+			if (_ViewManager == null)
+				_ViewManager = GameObject.FindObjectOfType<ViewManager>();
+			return _ViewManager;
+		}
+	}
 
 	public void StartWorldView ()
 	{
@@ -19,6 +28,12 @@ public class TestView : NetworkManager
 		StartCoroutine (Co_WaitForClientReady ());
 
 		GameState = new GameState ();
+	}
+
+	public void SendStartGame ()
+	{
+		client.Send (MsgType.Ready, new EmptyMessage ());
+		GameState.StartGame();
 	}
 
 	private IEnumerator Co_WaitForClientReady ()
@@ -31,32 +46,18 @@ public class TestView : NetworkManager
 		client.Send ((short)CustomMsgType.RegisterView, new IntegerMessage (0));
 		client.RegisterHandler ((short)CustomMsgType.UpdateFromFinishedRow, OnViewUpdate);
 		client.RegisterHandler ((short)CustomMsgType.UpdateGameState, OnGameStateUpdate);
+		client.RegisterHandler ((short)CustomMsgType.StartGame, delegate { });
 	}
 
 	private void OnViewUpdate (NetworkMessage netMsg)
 	{
 		var rowerData = netMsg.ReadMessage<ViewUpdateRowerMessage> ();
-		foreach (var rower in Views)
-		{
-			if (rower.Id == rowerData.Id)
-			{
-				rower.SetAnimationDuration (rowerData.Duration);
-				rower.StartRowing ();
-				StartCoroutine (Co_WaitForAnimationFinish (rowerData));
-			}
-		}
+		this.ViewManager.PlayerRowed( GameState.GetPlayer( rowerData.Id ), rowerData.Duration );
 	}
 
 	private void OnGameStateUpdate (NetworkMessage netMsg)
 	{
 		var msg = netMsg.ReadMessage<UpdateGameStateMessage> ();
 		GameState.SetPlayerState (msg.ConnectedPlayers);
-	}
-
-
-	private IEnumerator Co_WaitForAnimationFinish (ViewUpdateRowerMessage rower)
-	{
-		yield return new WaitForSeconds (rower.Duration);
-		Views[rower.Id].StopRowing ();
 	}
 }

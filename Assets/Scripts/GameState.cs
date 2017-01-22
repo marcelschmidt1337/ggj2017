@@ -6,6 +6,7 @@ using System.Linq;
 public class GameState
 {
 	public event Action OnGameStateChanged = delegate { };
+	public event Action OnGameStarted = delegate { };
 
 	List<Player> connectedPlayers = new List<Player> ();
 
@@ -13,6 +14,14 @@ public class GameState
 	{
 		connectedPlayers = playerState;
 		OnGameStateChanged ();
+	}
+
+	public Player GetPlayer (int id) {
+		foreach(var player in connectedPlayers) {
+			if (player.Id == id)
+				return player;
+		}
+		return null;
 	}
 
 	public List<Player> GetPlayerState ()
@@ -105,5 +114,11 @@ public class GameState
 	private Player FindPlayer (int id)
 	{
 		return connectedPlayers.Find (p => p.Id == id);
+	}
+
+	public void StartGame ()
+	{
+		Debug.Log ("Game Started!");
+		OnGameStarted ();
 	}
 }
