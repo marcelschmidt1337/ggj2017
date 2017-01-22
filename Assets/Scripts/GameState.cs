@@ -9,6 +9,11 @@ public class GameState : MonoBehaviour
 
 	List<Player> connectedPlayers = new List<Player> ();
 
+	public List<Player> GetAllPlayers()
+	{
+		return new List<Player>(this.connectedPlayers);
+	}
+
 	public bool HasPlayer (int id)
 	{
 		return FindPlayer (id) != null;
