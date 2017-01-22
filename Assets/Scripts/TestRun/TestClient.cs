@@ -17,10 +17,13 @@ public class TestClient : NetworkManager
 
 	bool IsMoving = false;
 
+	private int GroupId = PlayerConstants.NO_GROUP;
+
 	public void JoinGroup (int group)
 	{
 		if (client != null)
 		{
+			GroupId = group;
 			client.Send ((short)CustomMsgType.JoinGroup, new IntegerMessage (group));
 		}
 	}
@@ -29,6 +32,7 @@ public class TestClient : NetworkManager
 	{
 		if (client != null)
 		{
+			GroupId = PlayerConstants.NO_GROUP;
 			client.Send ((short)CustomMsgType.LeaveGroup, new EmptyMessage ());
 		}
 	}
@@ -65,6 +69,7 @@ public class TestClient : NetworkManager
 			networkAddress = ip;
 			StartClient ();
 			client.RegisterHandler ((short)CustomMsgType.StartGame, StartGame);
+			client.RegisterHandler ((short)CustomMsgType.GameOver, GameOver);
 		}
 
 		if (client != null)
@@ -81,6 +86,22 @@ public class TestClient : NetworkManager
 	{
 		Debug.Log ("CLIENT GAME STARTED");
 		UIManager.ShowClientUi ();
+	}
+
+	private void GameOver (NetworkMessage netMsg)
+	{
+		var winnerGroupId = netMsg.ReadMessage<IntegerMessage> ().value;
+
+		if (GroupId == winnerGroupId)
+		{
+			Debug.Log ("Game Over! You won! :)");
+			UIManager.ShowGameOverScreen (true);
+		}
+		else
+		{
+			UIManager.ShowGameOverScreen (false);
+			Debug.Log ("Game Over! You suck, loser! :O");
+		}
 	}
 
 	public void ValueChanged (float value)
@@ -102,6 +123,14 @@ public class TestClient : NetworkManager
 				client.Send ((short)CustomMsgType.StopRowing, new IntegerMessage (0));
 				StartCoroutine (WaitForMoveReady ());
 			}
+		}
+	}
+
+	public void OnSliderRelease()
+	{
+		if(Slider.value > .98)
+		{
+			Slider.value = 0;
 		}
 	}
 

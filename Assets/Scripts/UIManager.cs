@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
 	public GameObject HatSelect;
 	public GameObject Waiting;
 	public GameObject ClientUi;
+	public GameObject GameOver;
 
 	[Header ("Connect")]
 	public InputField IpInput;
@@ -33,6 +34,10 @@ public class UIManager : MonoBehaviour
 
 	public GameObject ManyGuys; 
 
+	[Header ("Game Over")]
+	public Text GameOverText;
+
+	[Header ("")]
 	public TestView WorldView;
 	public TestClient ClientView;
 
@@ -74,6 +79,7 @@ public class UIManager : MonoBehaviour
 		ClientUi.SetActive (false);
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
+		GameOver.SetActive (false);
 	}
 
 	public void ShowGroupSelection ()
@@ -87,6 +93,7 @@ public class UIManager : MonoBehaviour
 		}
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
+		GameOver.SetActive (false);
 	}
 
 	public void ShowSideSelection ()
@@ -97,6 +104,7 @@ public class UIManager : MonoBehaviour
 		Waiting.SetActive (false);
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
+		GameOver.SetActive (false);
 	}
 
 	public void ShowWaiting (bool showPlayerStatus)
@@ -109,6 +117,7 @@ public class UIManager : MonoBehaviour
 		Waiting.SetActive (true);
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
+		GameOver.SetActive (false);
 	}
 
 	public void ShowClientUi ()
@@ -122,6 +131,7 @@ public class UIManager : MonoBehaviour
 		}
 		SetClientUiActive (true);
 		SetHatSelectionActive (false);
+		GameOver.SetActive (false);
 	}
 
 	private void SetClientUiActive (bool active)
@@ -143,6 +153,7 @@ public class UIManager : MonoBehaviour
 		}
 		SetClientUiActive (false);
 		SetHatSelectionActive (true);
+		GameOver.SetActive (false);
 	}
 
 	private void SetHatSelectionActive (bool active)
@@ -150,6 +161,45 @@ public class UIManager : MonoBehaviour
 		if (IsClient)
 		{
 			HatSelect.SetActive (active);
+		}
+	}
+
+	public void ShowGameOverScreen (bool winner)
+	{
+		Connect.SetActive (false);
+		GroupSelect.SetActive (false);
+		SideSelect.SetActive (false);
+		Waiting.SetActive (false);
+		SetClientUiActive (false);
+		SetHatSelectionActive (false);
+		GameOver.SetActive (true);
+
+		if (IsPresenter)
+		{
+			int winnerGroup = gameState.WinnerGroupId;
+			string text = string.Empty;
+
+			if (winnerGroup == PlayerConstants.GROUP_A)
+			{
+				text = "Team A won!";
+			}
+			else if (winnerGroup == PlayerConstants.GROUP_B)
+			{
+				text = "Team B won!";
+			}
+
+			GameOverText.text = text;
+		}
+		else
+		{
+			if (winner)
+			{
+				GameOverText.text = "You won! :)";
+			}
+			else
+			{
+				GameOverText.text = "You suck, loser! :O";
+			}
 		}
 	}
 
@@ -180,7 +230,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnGroupSelect (int team)
 	{
-		SetBackgroundColor (team == 0 ? GroupAColor : GroupBColor);
+		SetBackgroundColor (team == PlayerConstants.GROUP_A ? GroupAColor : GroupBColor);
 		ShowSideSelection ();
 		ClientView.JoinGroup (team);
 	}

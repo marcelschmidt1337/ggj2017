@@ -13,11 +13,6 @@ namespace Assets.Scripts.TestRun
 		{
 			
 			base.OnDrag(eventData);
-			if (this.value > 0.98)
-			{
-				eventData.pointerDrag = null;
-				this.value = 0;
-			}
 		}
 	}
 }
