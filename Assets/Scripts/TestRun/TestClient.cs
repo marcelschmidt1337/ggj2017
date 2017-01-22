@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 using UnityEngine.UI;
@@ -97,9 +99,16 @@ public class TestClient : NetworkManager
 		{
 			if (value > 0.98f)
 			{
-				client.Send ((short)CustomMsgType.StopRowing, new IntegerMessage (0));
-				IsMoving = false;
+				client.Send((short)CustomMsgType.StopRowing, new IntegerMessage(0));
+				StartCoroutine(WaitForMoveReady());
+				
 			}
 		}
+	}
+
+	private IEnumerator WaitForMoveReady()
+	{
+		yield return new WaitForSeconds(0.2f);
+		IsMoving = false;
 	}
 }

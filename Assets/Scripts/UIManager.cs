@@ -149,6 +149,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnStartButton ()
 	{
+		Waiting.SetActive(false); 
 		WorldView.SendStartGame ();
 	}
 
