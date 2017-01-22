@@ -10,8 +10,6 @@ public class TestView : NetworkManager
 	public GameState GameState { get; private set; }
 
 	public List<RowingView> Views;
-	// Use this for initialization
-
 
 	public void StartWorldView ()
 	{
@@ -19,6 +17,11 @@ public class TestView : NetworkManager
 		StartCoroutine (Co_WaitForClientReady ());
 
 		GameState = new GameState ();
+	}
+
+	public void SendStartGame ()
+	{
+		client.Send (MsgType.Ready, new EmptyMessage ());
 	}
 
 	private IEnumerator Co_WaitForClientReady ()

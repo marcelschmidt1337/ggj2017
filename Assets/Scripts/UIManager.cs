@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
 		if (IsPresenter)
 		{
 			WorldView.StartWorldView ();
-			ShowWaiting (false);
+			ShowWaiting (true);
 		}
 		else
 		{
@@ -77,21 +77,14 @@ public class UIManager : MonoBehaviour
 		Waiting.gameObject.SetActive (false);
 	}
 
-	public void ShowWaiting (bool showBackButton)
+	public void ShowWaiting (bool showPlayerStatus)
 	{
-		BackButton.gameObject.SetActive (showBackButton);
-		PlayerStatus.gameObject.SetActive (!showBackButton);
+		PlayerStatus.gameObject.SetActive (showPlayerStatus);
 
 		Connect.gameObject.SetActive (false);
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (true);
-	}
-
-	public void OnHostButton ()
-	{
-		//netManager.StartGameServer ();
-		ShowWaiting (false);
 	}
 
 	public void OnConnectButton ()
@@ -109,6 +102,11 @@ public class UIManager : MonoBehaviour
 		ShowGroupSelection ();
 	}
 
+	public void OnStartButton ()
+	{
+		WorldView.SendStartGame ();
+	}
+
 	public void OnGroupSelect (int team)
 	{
 		ShowSideSelection ();
@@ -117,7 +115,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnSideSelect (int side)
 	{
-		ShowWaiting (true);
+		ShowWaiting (false);
 		ClientView.JoinSide (side);
 	}
 

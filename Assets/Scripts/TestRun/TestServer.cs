@@ -19,8 +19,8 @@ public class TestServer : NetworkManager
 	// Use this for initialization
 	void Start ()
 	{
-		TryStartServer(); 
-		
+		TryStartServer ();
+
 
 		GameState = new GameState ();
 	}
@@ -40,13 +40,13 @@ public class TestServer : NetworkManager
 			return;
 		}
 
-		NetworkServer.RegisterHandler((short)CustomMsgType.StartRowing, OnStartRowing);
-		NetworkServer.RegisterHandler((short)CustomMsgType.StopRowing, OnStopRowing);
-		NetworkServer.RegisterHandler((short)CustomMsgType.RegisterView, (netMsg) =>
-		{
-			GameViewClientId = netMsg.conn.connectionId;
-			GameViewClientSet = true;
-		});
+		NetworkServer.RegisterHandler ((short)CustomMsgType.StartRowing, OnStartRowing);
+		NetworkServer.RegisterHandler ((short)CustomMsgType.StopRowing, OnStopRowing);
+		NetworkServer.RegisterHandler ((short)CustomMsgType.RegisterView, (netMsg) =>
+		 {
+			 GameViewClientId = netMsg.conn.connectionId;
+			 GameViewClientSet = true;
+		 });
 		NetworkServer.RegisterHandler ((short)CustomMsgType.JoinGroup, OnJoinGroup);
 		NetworkServer.RegisterHandler ((short)CustomMsgType.LeaveGroup, OnLeaveGroup);
 		NetworkServer.RegisterHandler ((short)CustomMsgType.JoinSide, OnJoinSide);
@@ -144,5 +144,14 @@ public class TestServer : NetworkManager
 	private void OnStartRowing (NetworkMessage netMsg)
 	{
 		RowerData[netMsg.conn.connectionId] = new RowerData { Start = DateTime.Now };
+	}
+
+	public override void OnServerReady (NetworkConnection conn)
+	{
+		if (conn.connectionId == GameViewClientId)
+		{
+			GameState.StartGame ();
+		}
+		base.OnServerReady (conn);
 	}
 }
