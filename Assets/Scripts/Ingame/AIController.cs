@@ -52,7 +52,7 @@ public class AIController : MonoBehaviour
 		foreach(var rowTiming in this.rowTimings) {
 			rowTiming.TimeUmtilNextRowing -= Time.fixedDeltaTime;
 			if(rowTiming.TimeUmtilNextRowing < Mathf.Epsilon) {
-				GetComponent<Boat>().Row( rowTiming.Player );
+				GetComponent<Boat>().Row( rowTiming.Player, Random.Range(0.8f, 2.0f) );
 				rowTiming.TimeUmtilNextRowing += Random.Range( RowMinMaxTime.x, RowMinMaxTime.y );
 			}
 		}

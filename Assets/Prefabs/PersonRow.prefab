@@ -154,6 +154,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4624543626503962}
+  - component: {fileID: 114884961286197670}
   m_Layer: 0
   m_Name: PersonRow
   m_TagString: Untagged
@@ -379,7 +380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1337583039465560
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,6 +389,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4515486549460918}
+  - component: {fileID: 114736753543242500}
   m_Layer: 0
   m_Name: PersonRight
   m_TagString: Untagged
@@ -478,6 +480,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4480783810727534}
+  - component: {fileID: 114660115929012838}
   m_Layer: 0
   m_Name: PersonLeft
   m_TagString: Untagged
@@ -531,7 +534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1422584076408914
 GameObject:
   m_ObjectHideFlags: 1
@@ -610,7 +613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1459291880291824
 GameObject:
   m_ObjectHideFlags: 1
@@ -642,7 +645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1476332709667292
 GameObject:
   m_ObjectHideFlags: 1
@@ -666,6 +669,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4402597649179830}
+  - component: {fileID: 114309792902675802}
   m_Layer: 0
   m_Name: HatCollection
   m_TagString: Untagged
@@ -697,6 +701,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4251611231542464}
   - component: {fileID: 95172764352062004}
+  - component: {fileID: 114605274188005178}
   m_Layer: 0
   m_Name: Person01
   m_TagString: Untagged
@@ -727,6 +732,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4402446695982474}
+  - component: {fileID: 114760831230789994}
   m_Layer: 0
   m_Name: HatCollection
   m_TagString: Untagged
@@ -864,6 +870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4109790669638552}
   - component: {fileID: 95964905549215628}
+  - component: {fileID: 114160033866527504}
   m_Layer: 0
   m_Name: Person01
   m_TagString: Untagged
@@ -2328,6 +2335,99 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114160033866527504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1798265673966500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7853c43ef9bcf4f979e04603810bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 95964905549215628}
+--- !u!114 &114309792902675802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1497512068959404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9132eecedbbeb84ca3f4936e26206b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114605274188005178
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514234055873570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7853c43ef9bcf4f979e04603810bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animator: {fileID: 95172764352062004}
+--- !u!114 &114660115929012838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1389523292160232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d18fccef98fc8459ebf5d63fddf444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hat: {fileID: 114760831230789994}
+  Player:
+    Id: 0
+    Group: -1
+    Side: -1
+  rowingView: {fileID: 114605274188005178}
+--- !u!114 &114736753543242500
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1337583039465560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4d18fccef98fc8459ebf5d63fddf444, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Hat: {fileID: 114309792902675802}
+  Player:
+    Id: 0
+    Group: -1
+    Side: -1
+  rowingView: {fileID: 114160033866527504}
+--- !u!114 &114760831230789994
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1553506947011796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9132eecedbbeb84ca3f4936e26206b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114884961286197670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1090239260298224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa90309de58866047b2e68e41224af71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LeftSeat: {fileID: 114660115929012838}
+  RightSeat: {fileID: 114736753543242500}
 --- !u!137 &137344361804673086
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

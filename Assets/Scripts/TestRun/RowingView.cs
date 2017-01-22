@@ -6,11 +6,12 @@ public class RowingView : MonoBehaviour {
 
     public Animator Animator;
 
-	public int Id; 
+	float duration = 0.0f;
     private const float AnimationLength = 1.292f;
 	// Use this for initialization
 	public void StartRowing () {
         Animator.SetTrigger("StartRowing");
+		StartCoroutine( Co_WaitForAnimationFinish() );
 	}
 	
 	// Update is called once per frame
@@ -20,6 +21,13 @@ public class RowingView : MonoBehaviour {
 
     public void SetAnimationDuration(float duration)
     {
-        Animator.speed =  AnimationLength / duration ;
+		this.duration = duration;
+
+		Animator.speed =  AnimationLength / duration ;
     }
+
+	private IEnumerator Co_WaitForAnimationFinish () {
+		yield return new WaitForSeconds( this.duration );
+		StopRowing();
+	}
 }
