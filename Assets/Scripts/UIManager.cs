@@ -61,6 +61,7 @@ public class UIManager : MonoBehaviour
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (false);
 		ClientUi.gameObject.SetActive(false);
+		SetClientUiActive(false);
 	}
 
 	public void ShowGroupSelection ()
@@ -69,7 +70,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (true);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (false);
-		ClientUi.gameObject.SetActive(false);
+		SetClientUiActive(false);
 	}
 
 	public void ShowSideSelection ()
@@ -78,7 +79,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (true);
 		Waiting.gameObject.SetActive (false);
-		ClientUi.gameObject.SetActive(false);
+		SetClientUiActive(false);
 	}
 
 	public void ShowWaiting (bool showPlayerStatus)
@@ -89,17 +90,24 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (true);
-		ClientUi.gameObject.SetActive(false);
+		SetClientUiActive(false);
 	}
 
 	public void ShowClientUi()
 	{
-
 		Connect.gameObject.SetActive (false);
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (false);
-		ClientUi.gameObject.SetActive(true);
+		SetClientUiActive(true);
+	}
+
+	private void SetClientUiActive(bool active)
+	{
+		if (IsClient)
+		{
+			ClientUi.gameObject.SetActive(active);
+		}
 	}
 
 	public void OnConnectButton ()

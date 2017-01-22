@@ -34,6 +34,7 @@ public class TestView : NetworkManager
 		client.Send ((short)CustomMsgType.RegisterView, new IntegerMessage (0));
 		client.RegisterHandler ((short)CustomMsgType.UpdateFromFinishedRow, OnViewUpdate);
 		client.RegisterHandler ((short)CustomMsgType.UpdateGameState, OnGameStateUpdate);
+		client.RegisterHandler ((short)CustomMsgType.StartGame, delegate { });
 	}
 
 	private void OnViewUpdate (NetworkMessage netMsg)
