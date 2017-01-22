@@ -11,3 +11,5 @@ EditorBuildSettings:
     path: Assets/Scenes/StartWorldView.unity
   - enabled: 0
     path: Assets/Scenes/TestServer.unity
+  - enabled: 0
+    path: Assets/Scenes/TestNetworkClient.unity
