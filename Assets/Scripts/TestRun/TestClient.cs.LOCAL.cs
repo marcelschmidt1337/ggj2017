@@ -18,22 +18,11 @@ public class TestClient : NetworkManager
 
 	bool IsMoving = false;
 
-<<<<<<< HEAD
 	public void JoinGroup(int group)
 	{
 		if (client != null)
 		{
 			client.Send((short)CustomMsgType.JoinGroup, new IntegerMessage(group));
-=======
-	private int GroupId = PlayerConstants.NO_GROUP;
-
-	public void JoinGroup (int group)
-	{
-		if (client != null)
-		{
-			GroupId = group;
-			client.Send ((short)CustomMsgType.JoinGroup, new IntegerMessage (group));
->>>>>>> baf4b282d297de176e0c50fa74db98ea1eee0f57
 		}
 	}
 
@@ -41,12 +30,7 @@ public class TestClient : NetworkManager
 	{
 		if (client != null)
 		{
-<<<<<<< HEAD
 			client.Send((short)CustomMsgType.LeaveGroup, new EmptyMessage());
-=======
-			GroupId = PlayerConstants.NO_GROUP;
-			client.Send ((short)CustomMsgType.LeaveGroup, new EmptyMessage ());
->>>>>>> baf4b282d297de176e0c50fa74db98ea1eee0f57
 		}
 	}
 
@@ -80,9 +64,8 @@ public class TestClient : NetworkManager
 		if (client == null)
 		{
 			networkAddress = ip;
-			StartClient ();
-			client.RegisterHandler ((short)CustomMsgType.StartGame, StartGame);
-			client.RegisterHandler ((short)CustomMsgType.GameOver, GameOver);
+			StartClient();
+			client.RegisterHandler((short)CustomMsgType.StartGame, StartGame);
 		}
 
 		if (client != null)
@@ -101,23 +84,7 @@ public class TestClient : NetworkManager
 		UIManager.ShowClientUi();
 	}
 
-	private void GameOver (NetworkMessage netMsg)
-	{
-		var winnerGroupId = netMsg.ReadMessage<IntegerMessage> ().value;
-
-		if (GroupId == winnerGroupId)
-		{
-			Debug.Log ("Game Over! You won! :)");
-			UIManager.ShowGameOverScreen (true);
-		}
-		else
-		{
-			UIManager.ShowGameOverScreen (false);
-			Debug.Log ("Game Over! You suck, loser! :O");
-		}
-	}
-
-	public void ValueChanged (float value)
+	public void ValueChanged(float value)
 	{
 		if (client == null || !client.isConnected)
 		{

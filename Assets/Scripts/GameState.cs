@@ -7,8 +7,15 @@ public class GameState
 {
 	public event Action OnGameStateChanged = delegate { };
 	public event Action OnGameStarted = delegate { };
+	public event Action<int> OnGameOver = delegate { };
+	public int WinnerGroupId { get; private set; }
 
-	List<Player> connectedPlayers = new List<Player> ();
+	private List<Player> connectedPlayers = new List<Player> ();
+
+	public GameState ()
+	{
+		WinnerGroupId = PlayerConstants.NO_GROUP;
+	}
 
 	public void SetPlayerState (List<Player> playerState)
 	{
@@ -131,5 +138,11 @@ public class GameState
 	{
 		Debug.Log ("Game Started!");
 		OnGameStarted ();
+	}
+
+	public void GameOver (int winnerGroupId)
+	{
+		WinnerGroupId = winnerGroupId;
+		OnGameOver (winnerGroupId);
 	}
 }
