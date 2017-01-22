@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TestClient : NetworkManager
 {
 	public RowingView View;
-    public Slider Slider;
+	public Slider Slider;
 	public UIManager UIManager;
 	private float CountdownMove;
 	private float CountdownWait;
@@ -47,6 +47,15 @@ public class TestClient : NetworkManager
 		}
 	}
 
+	public void ChangeHat (int hatIndex)
+	{
+		if (client != null)
+		{
+			client.Send ((short)CustomMsgType.ChangeHat, new IntegerMessage (hatIndex));
+			UIManager.ShowWaiting (false);
+		}
+	}
+
 	public void StartClient (string ip)
 	{
 		if (client == null)
@@ -68,8 +77,8 @@ public class TestClient : NetworkManager
 
 	private void StartGame (NetworkMessage netMsg)
 	{
-		Debug.Log("CLIENT GAME STARTED");
-		UIManager.ShowClientUi();
+		Debug.Log ("CLIENT GAME STARTED");
+		UIManager.ShowClientUi ();
 	}
 
 	public void ValueChanged (float value)
@@ -81,14 +90,14 @@ public class TestClient : NetworkManager
 
 		if (!IsMoving)
 		{
-			client.Send((short)CustomMsgType.StartRowing, new IntegerMessage(0));
+			client.Send ((short)CustomMsgType.StartRowing, new IntegerMessage (0));
 			IsMoving = true;
 		}
 		else
 		{
 			if (value > 0.98f)
 			{
-				client.Send((short)CustomMsgType.StopRowing, new IntegerMessage(0));
+				client.Send ((short)CustomMsgType.StopRowing, new IntegerMessage (0));
 				IsMoving = false;
 			}
 		}
