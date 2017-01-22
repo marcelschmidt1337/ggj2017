@@ -3840,6 +3840,7 @@ MonoBehaviour:
   GroupBText: {fileID: 1992685237}
   GroupBLeft: {fileID: 486072836}
   GroupBRight: {fileID: 502756299}
+  ManyGuys: {fileID: 0}
   GameOverText: {fileID: 582646119}
   WorldView: {fileID: 0}
   ClientView: {fileID: 862413609}
