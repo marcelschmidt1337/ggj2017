@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
 	public GameObject GroupSelect;
 	public GameObject SideSelect;
 	public GameObject Waiting;
+	public GameObject ClientUi;
 
 	[Header ("Connect")]
 	public InputField IpInput;
@@ -59,6 +60,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (false);
+		ClientUi.gameObject.SetActive(false);
 	}
 
 	public void ShowGroupSelection ()
@@ -67,6 +69,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (true);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (false);
+		ClientUi.gameObject.SetActive(false);
 	}
 
 	public void ShowSideSelection ()
@@ -75,6 +78,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (true);
 		Waiting.gameObject.SetActive (false);
+		ClientUi.gameObject.SetActive(false);
 	}
 
 	public void ShowWaiting (bool showPlayerStatus)
@@ -85,6 +89,17 @@ public class UIManager : MonoBehaviour
 		GroupSelect.gameObject.SetActive (false);
 		SideSelect.gameObject.SetActive (false);
 		Waiting.gameObject.SetActive (true);
+		ClientUi.gameObject.SetActive(false);
+	}
+
+	public void ShowClientUi()
+	{
+
+		Connect.gameObject.SetActive (false);
+		GroupSelect.gameObject.SetActive (false);
+		SideSelect.gameObject.SetActive (false);
+		Waiting.gameObject.SetActive (false);
+		ClientUi.gameObject.SetActive(true);
 	}
 
 	public void OnConnectButton ()

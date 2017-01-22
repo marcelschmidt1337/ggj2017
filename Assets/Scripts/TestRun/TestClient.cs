@@ -7,6 +7,7 @@ public class TestClient : NetworkManager
 {
 	public RowingView View;
     public Slider Slider;
+	public UIManager UIManager;
 	private float CountdownMove;
 	private float CountdownWait;
 	private float MoveDuration;
@@ -52,6 +53,7 @@ public class TestClient : NetworkManager
 		{
 			networkAddress = ip;
 			StartClient ();
+			client.RegisterHandler ((short)CustomMsgType.StartGame, StartGame);
 		}
 
 		if (client != null)
@@ -64,8 +66,14 @@ public class TestClient : NetworkManager
 		}
 	}
 
-    public void ValueChanged(float value)
-    {
+	private void StartGame (NetworkMessage netMsg)
+	{
+		Debug.Log("CLIENT GAME STARTED");
+		UIManager.ShowClientUi();
+	}
+
+	public void ValueChanged (float value)
+	{
 		if (client == null || !client.isConnected)
 		{
 			return;
