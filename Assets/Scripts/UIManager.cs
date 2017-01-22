@@ -3,6 +3,13 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+	[Header ("Group Color")]
+	public Color DefaultColor;
+	public Color GroupAColor;
+	public Color GroupBColor;
+	public Image[] Backgrounds;
+	public Camera Camera;
+
 	[Header ("UI Panels")]
 	public GameObject Connect;
 	public GameObject GroupSelect;
@@ -142,6 +149,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnBackButton ()
 	{
+		SetBackgroundColor (DefaultColor);
 		ClientView.LeaveSide ();
 		ClientView.LeaveGroup ();
 		ShowGroupSelection ();
@@ -149,12 +157,13 @@ public class UIManager : MonoBehaviour
 
 	public void OnStartButton ()
 	{
-		Waiting.SetActive(false); 
+		Waiting.SetActive (false);
 		WorldView.SendStartGame ();
 	}
 
 	public void OnGroupSelect (int team)
 	{
+		SetBackgroundColor (team == 0 ? GroupAColor : GroupBColor);
 		ShowSideSelection ();
 		ClientView.JoinGroup (team);
 	}
@@ -183,5 +192,15 @@ public class UIManager : MonoBehaviour
 		GroupBText.text = string.Format ("Group B: {0}", b);
 		GroupBLeft.text = string.Format ("Left: {0}", bLeft);
 		GroupBRight.text = string.Format ("Right: {0}", bRight);
+	}
+
+	private void SetBackgroundColor (Color color)
+	{
+		for (int i = 0; i < Backgrounds.Length; i++)
+		{
+			Backgrounds[i].color = color;
+		}
+
+		Camera.backgroundColor = color;
 	}
 }
