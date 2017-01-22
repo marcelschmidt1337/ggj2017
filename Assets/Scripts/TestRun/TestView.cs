@@ -11,6 +11,17 @@ public class TestView : NetworkManager
 
 	public List<RowingView> Views;
 
+	ViewManager _ViewManager;
+	ViewManager ViewManager
+	{
+		get
+		{
+			if (_ViewManager == null)
+				_ViewManager = GameObject.FindObjectOfType<ViewManager>();
+			return _ViewManager;
+		}
+	}
+
 	public void StartWorldView ()
 	{
 		StartClient ();
@@ -40,27 +51,12 @@ public class TestView : NetworkManager
 	private void OnViewUpdate (NetworkMessage netMsg)
 	{
 		var rowerData = netMsg.ReadMessage<ViewUpdateRowerMessage> ();
-		foreach (var rower in Views)
-		{
-			if (rower.Id == rowerData.Id)
-			{
-				rower.SetAnimationDuration (rowerData.Duration);
-				rower.StartRowing ();
-				StartCoroutine (Co_WaitForAnimationFinish (rowerData));
-			}
-		}
+		this.ViewManager.PlayerRowed( GameState.GetPlayer( rowerData.Id ), rowerData.Duration );
 	}
 
 	private void OnGameStateUpdate (NetworkMessage netMsg)
 	{
 		var msg = netMsg.ReadMessage<UpdateGameStateMessage> ();
 		GameState.SetPlayerState (msg.ConnectedPlayers);
-	}
-
-
-	private IEnumerator Co_WaitForAnimationFinish (ViewUpdateRowerMessage rower)
-	{
-		yield return new WaitForSeconds (rower.Duration);
-		Views[rower.Id].StopRowing ();
 	}
 }
