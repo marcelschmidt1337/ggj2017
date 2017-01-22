@@ -31,6 +31,8 @@ public class UIManager : MonoBehaviour
 	public Text GroupBLeft;
 	public Text GroupBRight;
 
+	public GameObject ManyGuys; 
+
 	public TestView WorldView;
 	public TestClient ClientView;
 
@@ -66,6 +68,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
+		ManyGuys.SetActive(false); 
 		ClientUi.SetActive (false);
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
@@ -77,6 +80,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (true);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
+		ManyGuys.SetActive(false);
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
 	}
@@ -109,6 +113,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
+		ManyGuys.SetActive(false); 
 		SetClientUiActive (true);
 		SetHatSelectionActive (false);
 	}
@@ -127,6 +132,7 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
+		ManyGuys.SetActive(false); 
 		SetClientUiActive (false);
 		SetHatSelectionActive (true);
 	}
@@ -158,6 +164,7 @@ public class UIManager : MonoBehaviour
 	public void OnStartButton ()
 	{
 		Waiting.SetActive (false);
+		ManyGuys.SetActive(false); 
 		WorldView.SendStartGame ();
 	}
 
