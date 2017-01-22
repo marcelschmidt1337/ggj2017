@@ -7,9 +7,6 @@ public class GameOverTrigger : MonoBehaviour
 
 	private void OnTriggerExit (Collider other)
 	{
-		Debug.LogError (other.name);
-		Debug.LogError (other.tag);
-
 		if (!triggered)
 		{
 			triggered = true;
