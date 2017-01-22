@@ -170,8 +170,20 @@ public class UIManager : MonoBehaviour
 		}
 	}
 
-	public void ShowGameOverScreen (int _)
+	public void ShowGameOverScreen (int winnerId)
 	{
+		if (IsPresenter)
+		{
+			if (winnerId == PlayerConstants.GROUP_A)
+			{
+				SetBackgroundColor (GroupAColor);
+			}
+			else
+			{
+				SetBackgroundColor (GroupBColor);
+			}
+		}
+
 		//We Are presenter and don't care about the bool or winner id here
 		ShowGameOverScreen (false);
 	}
@@ -281,6 +293,9 @@ public class UIManager : MonoBehaviour
 			Backgrounds[i].color = color;
 		}
 
-		Camera.backgroundColor = color;
+		if (Camera != null)
+		{
+			Camera.backgroundColor = color;
+		}
 	}
 }
