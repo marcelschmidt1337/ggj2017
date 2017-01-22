@@ -34,3 +34,5 @@ bin/
 .vs
 /Assets/ShaderForge.meta
 /Assets/ShaderForge
+
+release/
