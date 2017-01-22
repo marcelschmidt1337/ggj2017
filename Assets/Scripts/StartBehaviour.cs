@@ -8,9 +8,6 @@ public class StartBehaviour : MonoBehaviour
 
 	private void Start ()
 	{
-		Debug.Log ("Create new game state...");
-		gameObject.AddComponent<GameState> ();
-
 		Debug.Log ("Loading UI...");
 		SceneManager.LoadScene ("UI", LoadSceneMode.Additive);
 	}

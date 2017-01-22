@@ -22,18 +22,35 @@ public class UIManager : MonoBehaviour
 	public Text GroupBLeft;
 	public Text GroupBRight;
 
-	private Manager netManager;
+	public TestView WorldView;
+	public TestClient ClientView;
+
+	public bool IsPresenter;
+	public bool IsClient;
+
+
 	private GameState gameState;
 
 	private void OnEnable ()
 	{
-		ShowConnect ();
-		var gameManager = GameObject.FindGameObjectWithTag ("GameManager");
-		netManager = gameManager.GetComponent<Manager> ();
+		if (IsPresenter)
+		{
+			WorldView.StartWorldView ();
+			ShowWaiting (true);
+		}
+		else
+		{
+			ShowConnect ();
+		}
 
-		gameState = gameManager.GetComponent<GameState> ();
-		gameState.OnGameStateChanged -= UpdateText;
-		gameState.OnGameStateChanged += UpdateText;
+		if (IsPresenter)
+		{
+			gameState = WorldView.GameState;
+			gameState.OnGameStateChanged -= UpdateText;
+			gameState.OnGameStateChanged += UpdateText;
+		}
+
+
 	}
 
 	public void ShowConnect ()
@@ -60,10 +77,9 @@ public class UIManager : MonoBehaviour
 		Waiting.gameObject.SetActive (false);
 	}
 
-	public void ShowWaiting (bool showBackButton)
+	public void ShowWaiting (bool showPlayerStatus)
 	{
-		BackButton.gameObject.SetActive (showBackButton);
-		PlayerStatus.gameObject.SetActive (!showBackButton);
+		PlayerStatus.gameObject.SetActive (showPlayerStatus);
 
 		Connect.gameObject.SetActive (false);
 		GroupSelect.gameObject.SetActive (false);
@@ -71,55 +87,48 @@ public class UIManager : MonoBehaviour
 		Waiting.gameObject.SetActive (true);
 	}
 
-	public void OnHostButton ()
-	{
-		netManager.StartGameServer ();
-		ShowWaiting (false);
-	}
-
 	public void OnConnectButton ()
 	{
 		string ip = string.IsNullOrEmpty (IpInput.text) ? (IpInput.placeholder as Text).text : IpInput.text;
-		netManager.StartClient (ip);
+		ClientView.StartClient (ip);
 		ShowGroupSelection ();
 	}
 
-	public void OnConnectAsGameViewClient ()
-	{
-		string ip = string.IsNullOrEmpty (IpInput.text) ? (IpInput.placeholder as Text).text : IpInput.text;
-		netManager.StartGameViewClient (ip);
-		ShowGroupSelection ();
-	}
 
 	public void OnBackButton ()
 	{
-		netManager.LeaveSide ();
-		netManager.LeaveGroup ();
+		ClientView.LeaveSide ();
+		ClientView.LeaveGroup ();
 		ShowGroupSelection ();
+	}
+
+	public void OnStartButton ()
+	{
+		WorldView.SendStartGame ();
 	}
 
 	public void OnGroupSelect (int team)
 	{
 		ShowSideSelection ();
-		netManager.JoinGroup (team);
+		ClientView.JoinGroup (team);
 	}
 
 	public void OnSideSelect (int side)
 	{
-		ShowWaiting (true);
-		netManager.JoinSide (side);
+		ShowWaiting (false);
+		ClientView.JoinSide (side);
 	}
 
 	private void UpdateText ()
 	{
-		int a = gameState.GetPlayerInGroup (Player.GROUP_A);
-		int b = gameState.GetPlayerInGroup (Player.GROUP_B);
+		int a = gameState.GetPlayerInGroup (PlayerConstants.GROUP_A);
+		int b = gameState.GetPlayerInGroup (PlayerConstants.GROUP_B);
 
-		int aLeft = gameState.GetPlayerOnSide (Player.GROUP_A, Player.SIDE_LEFT);
-		int aRight = gameState.GetPlayerOnSide (Player.GROUP_A, Player.SIDE_RIGHT);
+		int aLeft = gameState.GetPlayerOnSide (PlayerConstants.GROUP_A, PlayerConstants.SIDE_LEFT);
+		int aRight = gameState.GetPlayerOnSide (PlayerConstants.GROUP_A, PlayerConstants.SIDE_RIGHT);
 
-		int bLeft = gameState.GetPlayerOnSide (Player.GROUP_B, Player.SIDE_LEFT);
-		int bRight = gameState.GetPlayerOnSide (Player.GROUP_B, Player.SIDE_RIGHT);
+		int bLeft = gameState.GetPlayerOnSide (PlayerConstants.GROUP_B, PlayerConstants.SIDE_LEFT);
+		int bRight = gameState.GetPlayerOnSide (PlayerConstants.GROUP_B, PlayerConstants.SIDE_RIGHT);
 
 		GroupAText.text = string.Format ("Group A: {0}", a);
 		GroupALeft.text = string.Format ("Left: {0}", aLeft);

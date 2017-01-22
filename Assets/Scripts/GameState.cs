@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class GameState : MonoBehaviour
+public class GameState
 {
 	public event Action OnGameStateChanged = delegate { };
+	public event Action OnGameStarted = delegate { };
 
 	List<Player> connectedPlayers = new List<Player> ();
+
+	public void SetPlayerState (List<Player> playerState)
+	{
+		connectedPlayers = playerState;
+		OnGameStateChanged ();
+	}
+
+	public List<Player> GetPlayerState ()
+	{
+		return new List<Player> (connectedPlayers);
+	}
 
 	public bool HasPlayer (int id)
 	{
@@ -94,5 +106,11 @@ public class GameState : MonoBehaviour
 	private Player FindPlayer (int id)
 	{
 		return connectedPlayers.Find (p => p.Id == id);
+	}
+
+	public void StartGame ()
+	{
+		Debug.Log ("Game Started!");
+		OnGameStarted ();
 	}
 }
