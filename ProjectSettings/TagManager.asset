@@ -7,6 +7,7 @@ TagManager:
   - GameManager
   - BoatA
   - BoatB
+  - Water
   layers:
   - Default
   - TransparentFX

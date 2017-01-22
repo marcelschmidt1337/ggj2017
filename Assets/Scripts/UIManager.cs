@@ -32,6 +32,8 @@ public class UIManager : MonoBehaviour
 	public Text GroupBLeft;
 	public Text GroupBRight;
 
+	public GameObject ManyGuys; 
+
 	[Header ("Game Over")]
 	public Text GameOverText;
 
@@ -71,6 +73,9 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
+		if (ManyGuys != null) {
+			ManyGuys.SetActive(false); 
+		}
 		ClientUi.SetActive (false);
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
@@ -83,6 +88,9 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (true);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
+		if (ManyGuys != null) {
+			ManyGuys.SetActive(false);
+		}
 		SetClientUiActive (false);
 		SetHatSelectionActive (false);
 		GameOver.SetActive (false);
@@ -118,6 +126,9 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
+		if (ManyGuys != null) {
+			ManyGuys.SetActive(false);
+		}
 		SetClientUiActive (true);
 		SetHatSelectionActive (false);
 		GameOver.SetActive (false);
@@ -137,6 +148,9 @@ public class UIManager : MonoBehaviour
 		GroupSelect.SetActive (false);
 		SideSelect.SetActive (false);
 		Waiting.SetActive (false);
+		if (ManyGuys != null) {
+			ManyGuys.SetActive(false);
+		}
 		SetClientUiActive (false);
 		SetHatSelectionActive (true);
 		GameOver.SetActive (false);
@@ -208,6 +222,9 @@ public class UIManager : MonoBehaviour
 	public void OnStartButton ()
 	{
 		Waiting.SetActive (false);
+		if (ManyGuys != null) {
+			ManyGuys.SetActive(false);
+		}
 		WorldView.SendStartGame ();
 	}
 
