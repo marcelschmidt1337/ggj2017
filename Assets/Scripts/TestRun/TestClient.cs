@@ -101,7 +101,6 @@ public class TestClient : NetworkManager
 			{
 				client.Send ((short)CustomMsgType.StopRowing, new IntegerMessage (0));
 				StartCoroutine (WaitForMoveReady ());
-				Handheld.Vibrate ();
 			}
 		}
 	}
