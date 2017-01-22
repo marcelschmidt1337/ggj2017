@@ -16,7 +16,8 @@ public class AIClient : NetworkManager
 	private float WaitDuration;
 
 	bool IsMoving = false;
-	private bool GameIsStarted; 
+	private bool GameIsStarted;
+	private float Wait = 2; 
 
 
 	public void JoinGroup (int group)
@@ -51,14 +52,26 @@ public class AIClient : NetworkManager
 		}
 	}
 
-	void Start()
-	{
-		StartClient("localhost");
-		StartCoroutine(WaitForConnect()); 
+
+	void Update() {
+		/*if (Wait > 0) {
+			Wait -= Time.deltaTime; 
+
+		} else if (Wait > -10 && Wait <0) {
+			Wait = -100;
+			if (useWebSockets) {
+				StartClient("35.157.62.87");
+			}
+			else {
+				StartClient("localhost");
+			}
+			StartCoroutine(WaitForConnect());
+		}*/
 	}
 
 	private IEnumerator WaitForConnect()
 	{
+		
 		while (client == null || !client.isConnected) {
 			yield return null; 
 		}

@@ -1825,7 +1825,7 @@ MonoBehaviour:
     m_ReactorMaximumSentMessages: 1024
     m_MaxPacketSize: 2000
   m_Channels: 
-  m_UseWebSockets: 0
+  m_UseWebSockets: 1
   m_UseSimulator: 0
   m_SimulatedLatency: 1
   m_PacketLossPercentage: 0
@@ -1837,7 +1837,7 @@ MonoBehaviour:
   matchSize: 4
   isNetworkActive: 0
   matchMaker: {fileID: 0}
-  View: {fileID: 0}
+  View: {fileID: 62896227}
   Slider: {fileID: 1083291611}
   UIManager: {fileID: 1147981307}
 --- !u!4 &862413610
