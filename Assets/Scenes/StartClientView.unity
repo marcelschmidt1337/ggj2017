@@ -4245,7 +4245,7 @@ Prefab:
     - target: {fileID: 198093577802371658, guid: f26ae7fe5fd46074288909105666cd9f,
         type: 2}
       propertyPath: looping
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 198093577802371658, guid: f26ae7fe5fd46074288909105666cd9f,
         type: 2}
