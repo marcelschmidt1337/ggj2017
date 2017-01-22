@@ -18,32 +18,37 @@ public class ViewInfo
 				public Player Player;
 			}
 
-			public Seat LeftSeat = new Seat();
-			public Seat RightSeat = new Seat();
+			public Seat LeftSeat = new Seat ();
+			public Seat RightSeat = new Seat ();
 		}
 
-		public List<Row> Rows = new List<Row>();
+		public List<Row> Rows = new List<Row> ();
 
-		public void AddPlayer (Player player) {
-			for(int i = 0; i < this.Rows.Count; i++) {
-				switch (player.Side) {
+		public void AddPlayer (Player player)
+		{
+			for (int i = 0; i < this.Rows.Count; i++)
+			{
+				switch (player.Side)
+				{
 					case 0:
-						if (this.Rows[i].LeftSeat.Player == null) {
+						if (this.Rows[i].LeftSeat.Player == null)
+						{
 							this.Rows[i].LeftSeat.Player = player;
 							return;
 						}
 						break;
 					case 1:
-						if (this.Rows[i].RightSeat.Player == null) {
+						if (this.Rows[i].RightSeat.Player == null)
+						{
 							this.Rows[i].RightSeat.Player = player;
 							return;
 						}
 						break;
 				}
 			}
-			PointerEventData eventData;
-			var row = new Row();
-			switch (player.Side) {
+			var row = new Row ();
+			switch (player.Side)
+			{
 				case 0:
 					row.LeftSeat.Player = player;
 					break;
@@ -51,15 +56,16 @@ public class ViewInfo
 					row.RightSeat.Player = player;
 					break;
 			}
-			this.Rows.Add( row );
+			this.Rows.Add (row);
 		}
 	}
 
-	public Boat FirstBoat = new Boat();
-	public Boat SecondBoat = new Boat();
+	public Boat FirstBoat = new Boat ();
+	public Boat SecondBoat = new Boat ();
 }
 
-public class ViewManager : MonoBehaviour {
+public class ViewManager : MonoBehaviour
+{
 
 	public Boat BoatA;
 	public Boat BoatB;
@@ -67,55 +73,66 @@ public class ViewManager : MonoBehaviour {
 	public List<Player> TestGameState;
 	public bool UpdateTestView;
 
-	public void PlayerRowed (Player player, float rowDuration) {
-		switch (player.Group) {
+	public void PlayerRowed (Player player, float rowDuration)
+	{
+		switch (player.Group)
+		{
 			case 0:
-				this.BoatA.Row( player, rowDuration );
+				this.BoatA.Row (player, rowDuration);
 				break;
 			case 1:
-				this.BoatB.Row( player, rowDuration );
+				this.BoatB.Row (player, rowDuration);
 				break;
 		}
 	}
 
-	List<Player> aiState = new List<Player>();
-	public void AddAiGameState (List<Player> players) {
-		this.aiState.AddRange( players );
-		UpdateView( GetViewInfoForGameState( this.aiState ) );
+	List<Player> aiState = new List<Player> ();
+	public void AddAiGameState (List<Player> players)
+	{
+		this.aiState.AddRange (players);
+		UpdateView (GetViewInfoForGameState (this.aiState));
 	}
 
-	void Update () {
-		if (this.UpdateTestView) {
-			UpdateView( GetViewInfoForGameState(this.TestGameState) );
+	void Update ()
+	{
+		if (this.UpdateTestView)
+		{
+			UpdateView (GetViewInfoForGameState (this.TestGameState));
 			this.UpdateTestView = false;
 		}
 	}
 
-	void Start () {
-		var gameState = GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<TestView>().GameState;
+	void Start ()
+	{
+		var gameState = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<TestView> ().GameState;
 		gameState.OnGameStarted += CreateViews;
 	}
 
-	private void CreateViews () {
-		var gameState = GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<TestView>().GameState;
-		var state = gameState.GetPlayerState();
-		var viewInfo = GetViewInfoForGameState( state );
+	private void CreateViews ()
+	{
+		var gameState = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<TestView> ().GameState;
+		var state = gameState.GetPlayerState ();
+		var viewInfo = GetViewInfoForGameState (state);
 
-		UpdateView( viewInfo );	
+		UpdateView (viewInfo);
 	}
 
-	public void UpdateView (ViewInfo viewInfo) {
-		this.BoatA.UpdateView( viewInfo.FirstBoat );
-		this.BoatB.UpdateView( viewInfo.SecondBoat );
+	public void UpdateView (ViewInfo viewInfo)
+	{
+		this.BoatA.UpdateView (viewInfo.FirstBoat);
+		this.BoatB.UpdateView (viewInfo.SecondBoat);
 	}
 
-	private ViewInfo GetViewInfoForGameState(List<Player> state) {
-		var viewInfo = new ViewInfo();
+	private ViewInfo GetViewInfoForGameState (List<Player> state)
+	{
+		var viewInfo = new ViewInfo ();
 
-		for(int i = 0; i < state.Count; i++) {
+		for (int i = 0; i < state.Count; i++)
+		{
 			var player = state[i];
 			ViewInfo.Boat boat = null;
-			switch (player.Group) {
+			switch (player.Group)
+			{
 				case 0:
 					boat = viewInfo.FirstBoat;
 					break;
@@ -124,7 +141,7 @@ public class ViewManager : MonoBehaviour {
 					break;
 			}
 
-			boat.AddPlayer( player );
+			boat.AddPlayer (player);
 		}
 
 		return viewInfo;
