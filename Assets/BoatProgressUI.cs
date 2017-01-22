@@ -22,11 +22,11 @@ public class BoatProgressUI : MonoBehaviour {
 	}
 
 	void Update () {
-		float firstBoatX = 1.0f - Vector3.Distance( firstBoat.transform.position, goalPosition ) / Vector3.Distance( firstBoatStartPosition, goalPosition );
+		float firstBoatX = 1.0f - ( firstBoat.transform.position.z - goalPosition.z ) / ( firstBoatStartPosition.z - goalPosition.z );
 		this.firstBoatTransform.anchorMin = new Vector2( firstBoatX, this.firstBoatTransform.anchorMin.y );
 		this.firstBoatTransform.anchorMax = new Vector2( firstBoatX, this.firstBoatTransform.anchorMin.y );
 
-		float secondBoatX = 1.0f - Vector3.Distance( secondBoat.transform.position, goalPosition ) / Vector3.Distance( secondBoatStartPosition, goalPosition );
+		float secondBoatX = 1.0f - (secondBoat.transform.position.z - goalPosition.z) / (secondBoatStartPosition.z - goalPosition.z);
 		this.secondBoatTransform.anchorMin = new Vector2( secondBoatX, this.secondBoatTransform.anchorMin.y );
 		this.secondBoatTransform.anchorMax = new Vector2( secondBoatX, this.secondBoatTransform.anchorMin.y );
 	}
