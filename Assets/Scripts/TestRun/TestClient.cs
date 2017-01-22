@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Networking.NetworkSystem;
 
@@ -52,6 +50,7 @@ public class TestClient : NetworkManager
 		{
 			networkAddress = ip;
 			StartClient ();
+			client.RegisterHandler ((short)CustomMsgType.StartGame, StartGame);
 		}
 
 		if (client != null)
@@ -64,7 +63,10 @@ public class TestClient : NetworkManager
 		}
 	}
 
-
+	private void StartGame (NetworkMessage netMsg)
+	{
+		Debug.LogError ("CLIENT GAME STARTED");
+	}
 
 	void Update ()
 	{
