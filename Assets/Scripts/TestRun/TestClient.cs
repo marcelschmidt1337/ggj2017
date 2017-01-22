@@ -126,6 +126,14 @@ public class TestClient : NetworkManager
 		}
 	}
 
+	public void OnSliderRelease()
+	{
+		if(Slider.value > .98)
+		{
+			Slider.value = 0;
+		}
+	}
+
 	private IEnumerator WaitForMoveReady ()
 	{
 		yield return new WaitForSeconds (0.2f);
