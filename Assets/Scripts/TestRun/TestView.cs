@@ -33,6 +33,7 @@ public class TestView : NetworkManager
 	public void SendStartGame ()
 	{
 		client.Send (MsgType.Ready, new EmptyMessage ());
+		GameState.StartGame();
 	}
 
 	private IEnumerator Co_WaitForClientReady ()

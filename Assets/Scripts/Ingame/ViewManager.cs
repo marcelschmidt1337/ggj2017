@@ -91,7 +91,7 @@ public class ViewManager : MonoBehaviour {
 		}
 	}
 
-	void UpdateView () {
+	void Start () {
 		var gameState = GameObject.FindGameObjectWithTag( "GameManager" ).GetComponent<TestView>().GameState;
 		gameState.OnGameStarted += CreateViews;
 	}
