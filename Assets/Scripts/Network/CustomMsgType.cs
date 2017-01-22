@@ -8,12 +8,13 @@ public enum CustomMsgType
 	LeaveGroup,
 	JoinSide,
 	LeaveSide,
+	ChangeHat,
 	PlayerStatus,
 	StartRowing,
 	StopRowing,
 	UpdateFromFinishedRow,
 	UpdateGameState,
 	StartGame,
-	Test = 99,
-	RegisterView = 100
+	Test,
+	RegisterView
 }

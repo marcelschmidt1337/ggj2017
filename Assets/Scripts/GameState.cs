@@ -16,8 +16,10 @@ public class GameState
 		OnGameStateChanged ();
 	}
 
-	public Player GetPlayer (int id) {
-		foreach(var player in connectedPlayers) {
+	public Player GetPlayer (int id)
+	{
+		foreach (var player in connectedPlayers)
+		{
 			if (player.Id == id)
 				return player;
 		}
@@ -98,6 +100,15 @@ public class GameState
 		else
 		{
 			return -1;
+		}
+	}
+
+	public void SetHatIndex (int playerId, int index)
+	{
+		var player = FindPlayer (playerId);
+		if (player != null)
+		{
+			player.HatIndex = index;
 		}
 	}
 

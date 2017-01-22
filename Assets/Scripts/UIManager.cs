@@ -3,10 +3,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+	[Header ("Group Color")]
+	public Color DefaultColor;
+	public Color GroupAColor;
+	public Color GroupBColor;
+	public Image[] Backgrounds;
+	public Camera Camera;
+
 	[Header ("UI Panels")]
 	public GameObject Connect;
 	public GameObject GroupSelect;
 	public GameObject SideSelect;
+	public GameObject HatSelect;
 	public GameObject Waiting;
 	public GameObject ClientUi;
 
@@ -50,63 +58,84 @@ public class UIManager : MonoBehaviour
 			gameState.OnGameStateChanged -= UpdateText;
 			gameState.OnGameStateChanged += UpdateText;
 		}
-
-
 	}
 
 	public void ShowConnect ()
 	{
-		Connect.gameObject.SetActive (true);
-		GroupSelect.gameObject.SetActive (false);
-		SideSelect.gameObject.SetActive (false);
-		Waiting.gameObject.SetActive (false);
-		ClientUi.gameObject.SetActive(false);
-		SetClientUiActive(false);
+		Connect.SetActive (true);
+		GroupSelect.SetActive (false);
+		SideSelect.SetActive (false);
+		Waiting.SetActive (false);
+		ClientUi.SetActive (false);
+		SetClientUiActive (false);
+		SetHatSelectionActive (false);
 	}
 
 	public void ShowGroupSelection ()
 	{
-		Connect.gameObject.SetActive (false);
-		GroupSelect.gameObject.SetActive (true);
-		SideSelect.gameObject.SetActive (false);
-		Waiting.gameObject.SetActive (false);
-		SetClientUiActive(false);
+		Connect.SetActive (false);
+		GroupSelect.SetActive (true);
+		SideSelect.SetActive (false);
+		Waiting.SetActive (false);
+		SetClientUiActive (false);
+		SetHatSelectionActive (false);
 	}
 
 	public void ShowSideSelection ()
 	{
-		Connect.gameObject.SetActive (false);
-		GroupSelect.gameObject.SetActive (false);
-		SideSelect.gameObject.SetActive (true);
-		Waiting.gameObject.SetActive (false);
-		SetClientUiActive(false);
+		Connect.SetActive (false);
+		GroupSelect.SetActive (false);
+		SideSelect.SetActive (true);
+		Waiting.SetActive (false);
+		SetClientUiActive (false);
+		SetHatSelectionActive (false);
 	}
 
 	public void ShowWaiting (bool showPlayerStatus)
 	{
-		PlayerStatus.gameObject.SetActive (showPlayerStatus);
+		PlayerStatus.SetActive (showPlayerStatus);
 
-		Connect.gameObject.SetActive (false);
-		GroupSelect.gameObject.SetActive (false);
-		SideSelect.gameObject.SetActive (false);
-		Waiting.gameObject.SetActive (true);
-		SetClientUiActive(false);
+		Connect.SetActive (false);
+		GroupSelect.SetActive (false);
+		SideSelect.SetActive (false);
+		Waiting.SetActive (true);
+		SetClientUiActive (false);
+		SetHatSelectionActive (false);
 	}
 
-	public void ShowClientUi()
+	public void ShowClientUi ()
 	{
-		Connect.gameObject.SetActive (false);
-		GroupSelect.gameObject.SetActive (false);
-		SideSelect.gameObject.SetActive (false);
-		Waiting.gameObject.SetActive (false);
-		SetClientUiActive(true);
+		Connect.SetActive (false);
+		GroupSelect.SetActive (false);
+		SideSelect.SetActive (false);
+		Waiting.SetActive (false);
+		SetClientUiActive (true);
+		SetHatSelectionActive (false);
 	}
 
-	private void SetClientUiActive(bool active)
+	private void SetClientUiActive (bool active)
 	{
 		if (IsClient)
 		{
-			ClientUi.gameObject.SetActive(active);
+			ClientUi.SetActive (active);
+		}
+	}
+
+	public void ShowHatSelection ()
+	{
+		Connect.SetActive (false);
+		GroupSelect.SetActive (false);
+		SideSelect.SetActive (false);
+		Waiting.SetActive (false);
+		SetClientUiActive (false);
+		SetHatSelectionActive (true);
+	}
+
+	private void SetHatSelectionActive (bool active)
+	{
+		if (IsClient)
+		{
+			HatSelect.SetActive (active);
 		}
 	}
 
@@ -120,6 +149,7 @@ public class UIManager : MonoBehaviour
 
 	public void OnBackButton ()
 	{
+		SetBackgroundColor (DefaultColor);
 		ClientView.LeaveSide ();
 		ClientView.LeaveGroup ();
 		ShowGroupSelection ();
@@ -127,19 +157,20 @@ public class UIManager : MonoBehaviour
 
 	public void OnStartButton ()
 	{
-		Waiting.SetActive(false); 
+		Waiting.SetActive (false);
 		WorldView.SendStartGame ();
 	}
 
 	public void OnGroupSelect (int team)
 	{
+		SetBackgroundColor (team == 0 ? GroupAColor : GroupBColor);
 		ShowSideSelection ();
 		ClientView.JoinGroup (team);
 	}
 
 	public void OnSideSelect (int side)
 	{
-		ShowWaiting (false);
+		ShowHatSelection ();
 		ClientView.JoinSide (side);
 	}
 
@@ -161,5 +192,15 @@ public class UIManager : MonoBehaviour
 		GroupBText.text = string.Format ("Group B: {0}", b);
 		GroupBLeft.text = string.Format ("Left: {0}", bLeft);
 		GroupBRight.text = string.Format ("Right: {0}", bRight);
+	}
+
+	private void SetBackgroundColor (Color color)
+	{
+		for (int i = 0; i < Backgrounds.Length; i++)
+		{
+			Backgrounds[i].color = color;
+		}
+
+		Camera.backgroundColor = color;
 	}
 }

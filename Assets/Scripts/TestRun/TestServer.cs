@@ -51,6 +51,7 @@ public class TestServer : NetworkManager
 		NetworkServer.RegisterHandler ((short)CustomMsgType.LeaveGroup, OnLeaveGroup);
 		NetworkServer.RegisterHandler ((short)CustomMsgType.JoinSide, OnJoinSide);
 		NetworkServer.RegisterHandler ((short)CustomMsgType.LeaveSide, OnLeaveSide);
+		NetworkServer.RegisterHandler ((short)CustomMsgType.ChangeHat, OnChangeHat);
 
 		NetworkServer.RegisterHandler ((short)CustomMsgType.Test, (netMsg) =>
 		{
@@ -112,6 +113,13 @@ public class TestServer : NetworkManager
 		var playerId = netMsg.conn.connectionId;
 		GameState.SetSideId (playerId, PlayerConstants.NO_SIDE);
 
+		SendGameStateToView ();
+	}
+
+	private void OnChangeHat (NetworkMessage netMsg)
+	{
+		var playerid = netMsg.conn.connectionId;
+		GameState.SetHatIndex (playerid, netMsg.ReadMessage<IntegerMessage> ().value);
 		SendGameStateToView ();
 	}
 
