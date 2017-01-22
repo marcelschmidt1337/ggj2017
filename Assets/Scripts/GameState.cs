@@ -16,6 +16,14 @@ public class GameState
 		OnGameStateChanged ();
 	}
 
+	public Player GetPlayer (int id) {
+		foreach(var player in connectedPlayers) {
+			if (player.Id == id)
+				return player;
+		}
+		return null;
+	}
+
 	public List<Player> GetPlayerState ()
 	{
 		return new List<Player> (connectedPlayers);

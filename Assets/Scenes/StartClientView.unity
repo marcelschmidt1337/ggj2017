@@ -1839,6 +1839,8 @@ MonoBehaviour:
   isNetworkActive: 0
   matchMaker: {fileID: 0}
   View: {fileID: 62896227}
+  Slider: {fileID: 1083291611}
+  UIManager: {fileID: 1147981307}
 --- !u!4 &862413610
 Transform:
   m_ObjectHideFlags: 0
@@ -2639,7 +2641,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1083291609}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: c42c880a7abd2a64e990ea3e5fb70467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
@@ -2999,6 +3001,7 @@ MonoBehaviour:
   GroupSelect: {fileID: 506894713}
   SideSelect: {fileID: 663492282}
   Waiting: {fileID: 1797101351}
+  ClientUi: {fileID: 20320334}
   IpInput: {fileID: 1484825642}
   BackButton: {fileID: 1659125749}
   PlayerStatus: {fileID: 1784364908}

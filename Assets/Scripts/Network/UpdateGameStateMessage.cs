@@ -11,15 +11,12 @@ public class UpdateGameStateMessage : MessageBase
 	public override void Serialize (NetworkWriter writer)
 	{
 		string json = JsonMapper.ToJson(ConnectedPlayers); 
-			//JsonUtility.ToJson (ConnectedPlayers);
-		Debug.LogError ("Send JSON: " + json);
 		writer.Write (json);
 	}
 
 	public override void Deserialize (NetworkReader reader)
 	{
 		string json = reader.ReadString ();
-		Debug.LogError("Received JSON: " + json); 
 		ConnectedPlayers = JsonMapper.ToObject<List<Player>> (json);
 	}
 }
