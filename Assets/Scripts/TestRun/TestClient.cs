@@ -99,16 +99,16 @@ public class TestClient : NetworkManager
 		{
 			if (value > 0.98f)
 			{
-				client.Send((short)CustomMsgType.StopRowing, new IntegerMessage(0));
-				StartCoroutine(WaitForMoveReady());
-				
+				client.Send ((short)CustomMsgType.StopRowing, new IntegerMessage (0));
+				StartCoroutine (WaitForMoveReady ());
+				Handheld.Vibrate ();
 			}
 		}
 	}
 
-	private IEnumerator WaitForMoveReady()
+	private IEnumerator WaitForMoveReady ()
 	{
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds (0.2f);
 		IsMoving = false;
 	}
 }
