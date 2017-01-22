@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public enum CustomMsgType
+﻿public enum CustomMsgType
 {
 	JoinGroup = 50,
 	LeaveGroup,
@@ -15,6 +11,7 @@ public enum CustomMsgType
 	UpdateFromFinishedRow,
 	UpdateGameState,
 	StartGame,
+	GameOver,
 	Test,
 	RegisterView
 }

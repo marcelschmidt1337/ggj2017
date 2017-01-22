@@ -17,7 +17,7 @@ public class TestView : NetworkManager
 		get
 		{
 			if (_ViewManager == null)
-				_ViewManager = GameObject.FindObjectOfType<ViewManager>();
+				_ViewManager = GameObject.FindObjectOfType<ViewManager> ();
 			return _ViewManager;
 		}
 	}
@@ -33,7 +33,13 @@ public class TestView : NetworkManager
 	public void SendStartGame ()
 	{
 		client.Send (MsgType.Ready, new EmptyMessage ());
-		GameState.StartGame();
+		GameState.StartGame ();
+	}
+
+	public void SendGameOver (int winnerGroupId)
+	{
+		client.Send ((short)CustomMsgType.GameOver, new IntegerMessage (winnerGroupId));
+		GameState.GameOver (winnerGroupId);
 	}
 
 	private IEnumerator Co_WaitForClientReady ()
@@ -47,12 +53,13 @@ public class TestView : NetworkManager
 		client.RegisterHandler ((short)CustomMsgType.UpdateFromFinishedRow, OnViewUpdate);
 		client.RegisterHandler ((short)CustomMsgType.UpdateGameState, OnGameStateUpdate);
 		client.RegisterHandler ((short)CustomMsgType.StartGame, delegate { });
+		client.RegisterHandler ((short)CustomMsgType.GameOver, delegate { });
 	}
 
 	private void OnViewUpdate (NetworkMessage netMsg)
 	{
 		var rowerData = netMsg.ReadMessage<ViewUpdateRowerMessage> ();
-		this.ViewManager.PlayerRowed( GameState.GetPlayer( rowerData.Id ), rowerData.Duration );
+		this.ViewManager.PlayerRowed (GameState.GetPlayer (rowerData.Id), rowerData.Duration);
 	}
 
 	private void OnGameStateUpdate (NetworkMessage netMsg)

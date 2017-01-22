@@ -52,6 +52,7 @@ public class TestServer : NetworkManager
 		NetworkServer.RegisterHandler ((short)CustomMsgType.JoinSide, OnJoinSide);
 		NetworkServer.RegisterHandler ((short)CustomMsgType.LeaveSide, OnLeaveSide);
 		NetworkServer.RegisterHandler ((short)CustomMsgType.ChangeHat, OnChangeHat);
+		NetworkServer.RegisterHandler ((short)CustomMsgType.GameOver, OnGameOver);
 
 		NetworkServer.RegisterHandler ((short)CustomMsgType.Test, (netMsg) =>
 		{
@@ -123,6 +124,15 @@ public class TestServer : NetworkManager
 		SendGameStateToView ();
 	}
 
+	private void OnGameOver (NetworkMessage netMsg)
+	{
+		if (netMsg.conn.connectionId == GameViewClientId)
+		{
+			int winnerId = netMsg.ReadMessage<IntegerMessage> ().value;
+			GameState.GameOver (winnerId);
+			NetworkServer.SendToAll ((short)CustomMsgType.GameOver, new IntegerMessage (winnerId));
+		}
+	}
 
 	public override void OnClientConnect (NetworkConnection conn)
 	{
