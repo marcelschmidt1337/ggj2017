@@ -11,6 +11,7 @@ namespace Assets.Scripts.TestRun
 	{
 		public override void OnDrag(PointerEventData eventData)
 		{
+			
 			base.OnDrag(eventData);
 			if (this.value > 0.98)
 			{
