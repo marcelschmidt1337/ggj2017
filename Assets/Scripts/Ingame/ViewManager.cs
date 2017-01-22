@@ -78,6 +78,12 @@ public class ViewManager : MonoBehaviour {
 		}
 	}
 
+	List<Player> aiState = new List<Player>();
+	public void AddAiGameState (List<Player> players) {
+		this.aiState.AddRange( players );
+		UpdateView( GetViewInfoForGameState( this.aiState ) );
+	}
+
 	void Update () {
 		if (this.UpdateTestView) {
 			UpdateView( GetViewInfoForGameState(this.TestGameState) );
