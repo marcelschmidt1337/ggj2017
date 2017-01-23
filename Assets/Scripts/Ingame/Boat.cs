@@ -43,7 +43,7 @@ public class Boat : MonoBehaviour {
 			if (!HasPlayerRowed( player )) {
 				SavePlayerRowTiming( player );
 				if (HaveAllPlayersRowed()) {
-					Debug.LogWarningFormat( "Side {0} All Players Rowed At {1}!", id, Time.timeSinceLevelLoad );
+					//Debug.LogWarningFormat( "Side {0} All Players Rowed At {1}!", id, Time.timeSinceLevelLoad );
 					RowNow();
 				}
 			}
@@ -61,7 +61,7 @@ public class Boat : MonoBehaviour {
 
 		public void OnFixedUpdate () {
 			if (HasTimedOut()) {
-				Debug.LogErrorFormat( "Side {0} Timed Out At {1}!", id, Time.timeSinceLevelLoad );
+				//Debug.LogErrorFormat( "Side {0} Timed Out At {1}!", id, Time.timeSinceLevelLoad );
 				RowNow();
 			}
 		}
@@ -90,7 +90,7 @@ public class Boat : MonoBehaviour {
 			var power = maxPower * powerFactor * timingFactor;
 
 
-			Debug.LogFormat( "Side {0} Rowed with {1} Force. {2}/{3} Players Rowed with a timing of {4}", id, power, numRowedPlayers, numPlayers, averageRowTime );
+			//Debug.LogFormat( "Side {0} Rowed with {1} Force. {2}/{3} Players Rowed with a timing of {4}", id, power, numRowedPlayers, numPlayers, averageRowTime );
 
 			this.rowTimings.Clear();
 
