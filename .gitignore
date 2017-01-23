@@ -36,3 +36,5 @@ bin/
 /Assets/ShaderForge
 
 release/
+
+*.zip
