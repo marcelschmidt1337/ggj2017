@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LitJson;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,15 +21,18 @@ public class TestSocketConnection : MonoBehaviour {
 
 	private void PrintMessage(string obj)
 	{
-		this.Text.text = obj; 
-		Debug.Log("Message Received: " + obj); 
+		this.Text.text = obj;
+		var cmd = JsonMapper.ToObject<Command>(obj); 
+		Debug.Log("Message Received: Id: " + cmd.Id + " data: " + cmd.Data); 
 	}
 
 	private void SendStartMessage()
 	{
 		this.Text.text = "Connection established"; 
 		Debug.Log("Conenction established");
-		this.Connection.Send("Hello World"); 
+		var cmd = new Command() { Id = "TestCmd", Data = "TestData" };
+		var json = JsonMapper.ToJson(cmd); 
+		this.Connection.Send(json); 
 	}
 
 	// Update is called once per frame

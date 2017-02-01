@@ -3,7 +3,8 @@ package main
 import "net/http"
 import "fmt"
 import "github.com/gorilla/websocket"
-//import "encoding/json"
+import "encoding/json"
+import "gameServer/models"
 
 var upgrader = websocket.Upgrader{
     CheckOrigin: func(r *http.Request) bool {
@@ -28,11 +29,14 @@ func wsPage(response http.ResponseWriter, request *http.Request){
 }
 
 func readIncommingCommand(conn *websocket.Conn) (msg_type int, msg []byte){
-    msg_type, msg, read_err := conn.ReadMessage()
-    if read_err != nil {
-        fmt.Println(read_err)
+    msg_type, msg, err := conn.ReadMessage()
+    if err != nil {
+        fmt.Println(err)
     }
     fmt.Printf("Received Msg: " + string(msg[:]))
+    var cmd models.Command
+    err = json.Unmarshal(msg, &cmd)
+    fmt.Printf("Received Cmd: " + cmd.Id + " msg: " + cmd.Data)
     return msg_type, msg
 }
 
