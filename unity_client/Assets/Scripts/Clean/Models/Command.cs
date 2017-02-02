@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Command  {
 
-	public string Id;
+	public CommandType Id;
 	public string Data; 
 }

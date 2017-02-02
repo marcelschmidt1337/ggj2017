@@ -30,7 +30,7 @@ public class TestSocketConnection : MonoBehaviour {
 	{
 		this.Text.text = "Connection established"; 
 		Debug.Log("Conenction established");
-		var cmd = new Command() { Id = "TestCmd", Data = "TestData" };
+		var cmd = new Command() { Id = CommandType.RegisterClient, Data = "TestData" };
 		var json = JsonMapper.ToJson(cmd); 
 		this.Connection.Send(json); 
 	}

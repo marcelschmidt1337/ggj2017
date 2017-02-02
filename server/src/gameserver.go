@@ -3,8 +3,10 @@ package main
 import "net/http"
 import "fmt"
 import "github.com/gorilla/websocket"
-import "encoding/json"
+
 import "gameServer/models"
+import "gameServer"
+import "strconv"
 
 var upgrader = websocket.Upgrader{
     CheckOrigin: func(r *http.Request) bool {
@@ -12,7 +14,11 @@ var upgrader = websocket.Upgrader{
     },
 }
 
+var highestClientId int = 0
+var registeredClients map[int]*gameServer.Client
+
 func main(){
+    registeredClients = make(map[int]*gameServer.Client)
     fmt.Printf("Server is running\n")
     http.HandleFunc("/", wsPage)
     http.ListenAndServe(":7777", nil)
@@ -33,10 +39,17 @@ func readIncommingCommand(conn *websocket.Conn) (msg_type int, msg []byte){
     if err != nil {
         fmt.Println(err)
     }
-    fmt.Printf("Received Msg: " + string(msg[:]))
-    var cmd models.Command
-    err = json.Unmarshal(msg, &cmd)
-    fmt.Printf("Received Cmd: " + cmd.Id + " msg: " + cmd.Data)
+    fmt.Println("Received Msg: " + string(msg[:]))
+    cmd := models.NewCommandFromJson(msg)
+    id := strconv.Itoa(cmd.Id)
+    fmt.Println("Received Cmd: " + id + " msg: " + cmd.Data)
+
+    switch cmd.Id {
+    case models.RegisterClient:
+        registerClient(conn)
+        BroadCastToAllClients()
+    }
+
     return msg_type, msg
 }
 
@@ -46,5 +59,19 @@ func sendCommand(conn *websocket.Conn, msg_type int, msg []byte){
     write_err != nil {
         fmt.Println("Send error")
         return
+    }
+}
+
+func registerClient(conn *websocket.Conn){
+    client := gameServer.NewClient(conn)
+    registeredClients[highestClientId] = client
+    highestClientId++
+}
+
+func BroadCastToAllClients(){
+    fmt.Println("Broadcast welcome command")
+    dummyCommand := models.NewCommand(models.HelloClient, "Welcome on server")
+    for _, client := range registeredClients {
+        client.SendCommand(dummyCommand)
     }
 }
