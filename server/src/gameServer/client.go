@@ -5,17 +5,23 @@ import "gameServer/models"
 import "fmt"
 import "log"
 
-type Client struct{
+// interfaces in go
+// https://go-book.appspot.com/interfaces.html
+type Client interface{
+    SendCommand(cmd *models.Command)
+}
+type BaseClient struct{
     Connection *websocket.Conn
     Id int
 }
 
-func NewClient(conn *websocket.Conn) (client *Client){
-    client = new(Client)
+func NewClient(conn *websocket.Conn) (client *BaseClient){
+    client = new(BaseClient)
     client.Connection = conn
     return client
 }
-func (client *Client) SendCommand(cmd *models.Command) {
+
+func (client *BaseClient) SendCommand(cmd *models.Command) {
     var write_err error = nil
     if write_err = client.Connection.WriteMessage(websocket.TextMessage, cmd.GetRawData())
     write_err != nil {

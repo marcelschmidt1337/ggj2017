@@ -1,4 +1,5 @@
 ﻿public enum CommandType {
 	RegisterClient = 0, 
-	HelloClient = 1
+	RegisterViewer = 1,
+	HelloClient = 2
 }

@@ -5,7 +5,8 @@ import "fmt"
 import "log"
 
 const (
-    RegisterClient int = iota
+    RegisterPlayer int = iota
+    RegisterViewer int = iota
     HelloClient int = iota
 )
 
