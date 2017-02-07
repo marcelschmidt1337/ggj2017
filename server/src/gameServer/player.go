@@ -7,7 +7,7 @@ type Player struct{
     BaseClient
 }
 
-func NewPlayer(conn *websocket.Conn) (player *Player){
-    player = new(Player{NewClient(conn)})
+func NewPlayer(conn *websocket.Conn) (player Player){
+    player = Player{NewClient(conn)}
     return player
 }

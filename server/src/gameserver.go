@@ -79,7 +79,7 @@ func BroadCastToAllPlayers(){
 func BroadCastToAllViewers(){
     BroadCast("Hello Viewer", registeredViewer);
 }
-func BroadCastToAllViewers(msg string, receiverList map[]*gameServer.Client){
+func BroadCastToAllViewers(msg string, receiverList map[int]*gameServer.Client){
     dummyCommand := models.NewCommand(models.HelloClient, msg)
     for _, client := range receiverList {
         client.SendCommand(dummyCommand)

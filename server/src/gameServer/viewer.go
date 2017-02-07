@@ -6,7 +6,7 @@ type Viewer struct{
     BaseClient
 }
 
-func NewViewer(conn *websocket.Conn) (viewer *Viewer){
-    viewer = new(Viewer{NewClient(conn)})
+func NewViewer(conn *websocket.Conn) (viewer Viewer){
+    viewer = Viewer{NewClient(conn)}
     return viewer
 }

@@ -15,7 +15,7 @@ type Command struct{
     Data string
 }
 
-func (cmd *Command) GetRawData() (data []byte){
+func (cmd Command) GetRawData() (data []byte){
     data, err := json.Marshal(cmd)
     if err != nil {
         fmt.Println("Error reading Command RawData")
@@ -24,12 +24,11 @@ func (cmd *Command) GetRawData() (data []byte){
     return data
 }
 
-func (cmd *Command) ToJsonString() (jsonData string){
+func (cmd Command) ToJsonString() (jsonData string){
     return string(cmd.GetRawData()[:])
 }
 
-func NewCommand(id int, data string) (cmd *Command){
-    cmd = new(Command)
+func NewCommand(id int, data string) (cmd Command){
     cmd.Id = id
     cmd.Data = data
     return cmd
