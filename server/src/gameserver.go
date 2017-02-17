@@ -15,25 +15,25 @@ var upgrader = websocket.Upgrader{
 }
 
 var highestClientId int = 0
-var registeredPlayer map[int]gameServer.Client
-var registeredViewer map[int]gameServer.Client
+var registeredPlayer map[*websocket.Conn]gameServer.Player
+var registeredViewer map[*websocket.Conn]gameServer.Viewer
 
 func main(){
-    registeredPlayer = make(map[int]gameServer.Client)
-    registeredViewer = make(map[int]gameServer.Client)
+    registeredPlayer = make(map[*websocket.Conn]gameServer.Player)
+    registeredViewer = make(map[*websocket.Conn]gameServer.Viewer)
     fmt.Printf("Server is running\n")
     http.HandleFunc("/", Serve)
     http.ListenAndServe(":7777", nil)
 }
 
 func Serve(response http.ResponseWriter, request *http.Request){
+    fmt.Println("Incoming!")
     conn, err := upgrader.Upgrade(response, request, nil)
     if err != nil {
         fmt.Println(err)
         return
     }
     ReadIncommingCommands(conn)
-    //sendCommand(conn, msg_type, msg)
 }
 
 func ReadIncommingCommands(conn *websocket.Conn) (msg_type int, msg []byte){
@@ -43,15 +43,19 @@ func ReadIncommingCommands(conn *websocket.Conn) (msg_type int, msg []byte){
     }
     fmt.Println("Received Msg: " + string(msg[:]))
     cmd := models.NewCommandFromJson(msg)
-    id := strconv.Itoa(cmd.Id)
-    fmt.Println("Received Cmd: " + id + " msg: " + cmd.Data)
+    id := strconv.Itoa(cmd.CommandId)
+    fmt.Println("Received Cmd: " + id)
 
-    switch cmd.Id {
+    switch cmd.CommandId {
         case models.RegisterPlayer:
             RegisterPlayer(conn)
             BroadCastToAllPlayers()
         case models.RegisterViewer:
             RegisterViewer(conn)
+        case models.PlayerStartRow:
+            registeredPlayer[conn].StartRow()
+        case models.PlayerStopRow:
+            registeredPlayer[conn].StopRow()
     }
 
     return msg_type, msg
@@ -59,29 +63,35 @@ func ReadIncommingCommands(conn *websocket.Conn) (msg_type int, msg []byte){
 
 func RegisterPlayer(conn *websocket.Conn){
     player := gameServer.NewPlayer(conn)
-    registeredPlayer[highestClientId] = player
-    IncreaseClientId()
+    registeredPlayer[conn] = player
 }
 
 func RegisterViewer(conn *websocket.Conn){
     viewer := gameServer.NewViewer(conn)
-    registeredViewer[highestClientId] = viewer
-    IncreaseClientId()
-}
-
-func IncreaseClientId(){
-    highestClientId++
+    registeredViewer[conn] = viewer
 }
 
 func BroadCastToAllPlayers(){
-    BroadCast("Hello Player", registeredPlayer)
+    BroadCastP("Hello Player", registeredPlayer)
 }
 
 func BroadCastToAllViewers(){
-    BroadCast("Hello Viewer", registeredViewer)
+    BroadCastV("Hello Viewer", registeredViewer)
 }
-func BroadCast(msg string, receiverList map[int]gameServer.Client){
-    dummyCommand := models.NewCommand(models.HelloClient, msg)
+func BroadCastP(msg string, receiverList map[*websocket.Conn]gameServer.Player){
+    dummyCommand := models.NewCommand(models.HelloClient)
+    for _, client := range receiverList {
+        client.SendCommand(dummyCommand)
+    }
+}
+func BroadCastV(msg string, receiverList map[*websocket.Conn]gameServer.Viewer){
+    dummyCommand := models.NewCommand(models.HelloClient)
+    for _, client := range receiverList {
+        client.SendCommand(dummyCommand)
+    }
+}
+func BroadCast(msg string, receiverList map[*websocket.Conn]gameServer.Client){
+    dummyCommand := models.NewCommand(models.HelloClient)
     for _, client := range receiverList {
         client.SendCommand(dummyCommand)
     }

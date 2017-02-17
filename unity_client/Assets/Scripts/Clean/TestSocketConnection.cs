@@ -23,14 +23,32 @@ public class TestSocketConnection : MonoBehaviour {
 	{
 		this.Text.text = obj;
 		var cmd = JsonMapper.ToObject<Command>(obj); 
-		Debug.Log("Message Received: Id: " + cmd.Id + " data: " + cmd.Data); 
+		Debug.Log("Message Received: Id: " + cmd.CommandId);
+		StartCoroutine(Pull()); 
+	}
+
+	private IEnumerator Pull()
+	{
+		while (true) {
+			
+			yield return new WaitForSeconds(1);
+			SendStartMessage(); 
+			/*var startRow = new Command() { CommandId = CommandType.StartRow };
+			var json = JsonMapper.ToJson(startRow);
+			Debug.Log("Send StartRow Message: " + json);
+			this.Connection.Send(json);
+			yield return new WaitForSeconds(1);
+			var stopRow = new Command() { CommandId = CommandType.StopRow };
+			this.Connection.Send(JsonMapper.ToJson(stopRow));
+			Debug.Log("Pull finished"); */
+		}
 	}
 
 	private void SendStartMessage()
 	{
 		this.Text.text = "Connection established"; 
 		Debug.Log("Conenction established");
-		var cmd = new Command() { Id = CommandType.RegisterClient, Data = "TestData" };
+		var cmd = new Command() { CommandId = CommandType.RegisterClient };
 		var json = JsonMapper.ToJson(cmd); 
 		this.Connection.Send(json); 
 	}
@@ -42,5 +60,9 @@ public class TestSocketConnection : MonoBehaviour {
 
 	void OnGUI() {
 		
+	}
+
+	void OnDestroy() {
+		StopAllCoroutines(); 
 	}
 }

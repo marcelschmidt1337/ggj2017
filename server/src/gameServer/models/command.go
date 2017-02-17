@@ -7,12 +7,13 @@ import "log"
 const (
     RegisterPlayer int = iota
     RegisterViewer int = iota
+    PlayerStartRow int = iota
+    PlayerStopRow int = iota
     HelloClient int = iota
 )
 
 type Command struct{
-    Id int
-    Data string
+    CommandId int
 }
 
 func (cmd Command) GetRawData() (data []byte){
@@ -28,9 +29,8 @@ func (cmd Command) ToJsonString() (jsonData string){
     return string(cmd.GetRawData()[:])
 }
 
-func NewCommand(id int, data string) (cmd Command){
-    cmd.Id = id
-    cmd.Data = data
+func NewCommand(commandId int) (cmd Command){
+    cmd.CommandId = commandId
     return cmd
 }
 func NewCommandFromJson(jsonData []byte) (cmd *Command){
