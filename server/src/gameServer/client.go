@@ -8,7 +8,7 @@ import "log"
 // interfaces in go
 // https://go-book.appspot.com/interfaces.html
 type Client interface{
-    SendCommand(cmd *models.Command)
+    SendCommand(cmd models.Command)
 }
 type BaseClient struct{
     Connection *websocket.Conn

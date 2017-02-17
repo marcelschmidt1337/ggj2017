@@ -15,11 +15,12 @@ var upgrader = websocket.Upgrader{
 }
 
 var highestClientId int = 0
-var registeredPlayer map[int]*gameServer.Player
-var registeredViewer map[int]*gameServer.Viewer
+var registeredPlayer map[int]gameServer.Client
+var registeredViewer map[int]gameServer.Client
 
 func main(){
-    registeredPlayers = make(map[int]*gameServer.Player)
+    registeredPlayer = make(map[int]gameServer.Client)
+    registeredViewer = make(map[int]gameServer.Client)
     fmt.Printf("Server is running\n")
     http.HandleFunc("/", Serve)
     http.ListenAndServe(":7777", nil)
@@ -31,8 +32,8 @@ func Serve(response http.ResponseWriter, request *http.Request){
         fmt.Println(err)
         return
     }
-    msg_type, msg := ReadIncommingCommands(conn)
-    sendCommand(conn, msg_type, msg)
+    ReadIncommingCommands(conn)
+    //sendCommand(conn, msg_type, msg)
 }
 
 func ReadIncommingCommands(conn *websocket.Conn) (msg_type int, msg []byte){
@@ -58,7 +59,7 @@ func ReadIncommingCommands(conn *websocket.Conn) (msg_type int, msg []byte){
 
 func RegisterPlayer(conn *websocket.Conn){
     player := gameServer.NewPlayer(conn)
-    registeredPlayers[highestClientId] = player
+    registeredPlayer[highestClientId] = player
     IncreaseClientId()
 }
 
@@ -73,13 +74,13 @@ func IncreaseClientId(){
 }
 
 func BroadCastToAllPlayers(){
-    BroadCast("Hello Player", registeredPlayers)
+    BroadCast("Hello Player", registeredPlayer)
 }
 
 func BroadCastToAllViewers(){
-    BroadCast("Hello Viewer", registeredViewer);
+    BroadCast("Hello Viewer", registeredViewer)
 }
-func BroadCastToAllViewers(msg string, receiverList map[int]*gameServer.Client){
+func BroadCast(msg string, receiverList map[int]gameServer.Client){
     dummyCommand := models.NewCommand(models.HelloClient, msg)
     for _, client := range receiverList {
         client.SendCommand(dummyCommand)
